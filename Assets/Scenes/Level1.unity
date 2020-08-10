@@ -3859,6 +3859,7 @@ GameObject:
   - component: {fileID: 960284720}
   - component: {fileID: 960284719}
   - component: {fileID: 960284721}
+  - component: {fileID: 960284722}
   m_Layer: 0
   m_Name: YellowGem
   m_TagString: Untagged
@@ -3938,6 +3939,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.0503515}
   serializedVersion: 2
   m_Radius: 0.18034971
+--- !u!114 &960284722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 960284718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d505734154564071a4a0a23195a3e73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inverted: 0
 --- !u!1 &1034131208
 GameObject:
   m_ObjectHideFlags: 0
@@ -4673,6 +4686,7 @@ GameObject:
   - component: {fileID: 1947963498}
   - component: {fileID: 1947963497}
   - component: {fileID: 1947963499}
+  - component: {fileID: 1947963500}
   m_Layer: 0
   m_Name: BlueGem
   m_TagString: Untagged
@@ -4752,6 +4766,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.039561987}
   serializedVersion: 2
   m_Radius: 0.17675328
+--- !u!114 &1947963500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1947963496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d505734154564071a4a0a23195a3e73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inverted: 1
 --- !u!1 &1948680740
 GameObject:
   m_ObjectHideFlags: 0
