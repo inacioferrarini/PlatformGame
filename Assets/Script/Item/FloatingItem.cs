@@ -17,6 +17,9 @@ public class FloatingItem : MonoBehaviour
     private AnimationCurve curve;
     private Vector3 gemPosition;
 
+    /// <summary>
+    /// Initialization.
+    /// </summary>
     void Start()
     {
         curve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.8f, 0.2f));
@@ -26,6 +29,9 @@ public class FloatingItem : MonoBehaviour
         gemPosition = transform.position;
     }
 
+    /// <summary>
+    /// Frame-based update. Called once per frame
+    /// </summary>
     void Update()
     {
         if (inverted)
