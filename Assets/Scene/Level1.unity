@@ -3651,9 +3651,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 129337664}
-  delay: {x: 0, y: 0}
+  delay: {x: 0.2, y: 0.2}
   minLimit: {x: 0, y: 0}
-  maxLimit: {x: 0, y: 0}
+  maxLimit: {x: 43.1, y: 2.9}
 --- !u!1 &1034131208
 GameObject:
   m_ObjectHideFlags: 0

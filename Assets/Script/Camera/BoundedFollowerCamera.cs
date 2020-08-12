@@ -51,7 +51,10 @@ public class BoundedFollowerCamera : MonoBehaviour
             float posX = Mathf.SmoothDamp(transform.position.x, target.position.x, ref velocity.x, delay.x);
             float posY = Mathf.SmoothDamp(transform.position.y, target.position.y, ref velocity.y, delay.y);
 
-            transform.position = new Vector3(posX, posY, transform.position.z);
+            transform.position = new Vector3(
+                Mathf.Clamp(posX, minLimit.x, maxLimit.x),
+                Mathf.Clamp(posY, minLimit.y, maxLimit.y),
+                transform.position.z);
         }
     }
 
