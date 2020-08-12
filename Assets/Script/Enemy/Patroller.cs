@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 
 /// <summary>
-/// Script user to control the player.
+/// Script for Patroller enemy.
 /// </summary>
-public class Player : MonoBehaviour
+public class Patroller : MonoBehaviour
 {
     /// <summary>
     /// Movement speed.
@@ -14,12 +13,7 @@ public class Player : MonoBehaviour
     public float speed;
 
     /// <summary>
-    /// Force to be applied to the rigid body upon jump.
-    /// </summary>
-    public int jumpForce;
-
-    /// <summary>
-    /// Used to check if the player is touching the ground.
+    /// Used to check if the enemy is touching the ground.
     /// </summary>
     public Transform groundCheck;
 
@@ -34,14 +28,9 @@ public class Player : MonoBehaviour
     public float radiusCheck;
 
     /// <summary>
-    /// Is the player touching the ground?
+    /// Is the enemy touching the ground?
     /// </summary>
     private bool isTouchingGround;
-
-    /// <summary>
-    /// Is the player jumping;
-    /// </summary>
-    private bool isJumping;
 
     /// <summary>
     /// If the current sprite is facing right.
@@ -56,9 +45,14 @@ public class Player : MonoBehaviour
     private Rigidbody2D rigidBody;
 
     /// <summary>
-    /// The animator for the player.
+    /// The animator for the enemy.
     /// </summary>
     private Animator animator;
+
+    /// <summary>
+    /// Is visible on screen?
+    /// </summary>
+    private bool isVisible = false;
 
     /// <summary>
     /// Initialization.
@@ -76,12 +70,10 @@ public class Player : MonoBehaviour
     {
         isTouchingGround = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
-        if (Input.GetButtonDown(InputKeys.jump) && isTouchingGround)
+        if (!isTouchingGround)
         {
-            isJumping = true;
+            Flip();
         }
-
-        PlayAnimations();
     }
 
     /// <summary>
@@ -89,37 +81,13 @@ public class Player : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        float move = 0f;
-
-        move = Input.GetAxis(InputAxis.horizontal);
-
-        rigidBody.velocity = new Vector2(move * speed, rigidBody.velocity.y);
-
-        if ((move < 0 && isFacingRight) || (move > 0 && !isFacingRight))
+        if (isVisible)
         {
-            Flip();
+            rigidBody.velocity = new Vector2(speed, rigidBody.velocity.y);
         }
-
-        if (isJumping)
+        else
         {
-            rigidBody.AddForce(new Vector2(0f, jumpForce));
-            isJumping = false;
-        }
-    }
-
-    void PlayAnimations()
-    {
-        if (isTouchingGround && rigidBody.velocity.x != 0)
-        {
-            animator.Play(Animations.run);
-        }
-        else if (isTouchingGround && rigidBody.velocity.x == 0)
-        {
-            animator.Play(Animations.idle);
-        }
-        else if (!isTouchingGround)
-        {
-            animator.Play(Animations.jump);
+            rigidBody.velocity = new Vector2(0f, rigidBody.velocity.y);
         }
     }
 
@@ -127,25 +95,29 @@ public class Player : MonoBehaviour
     {
         isFacingRight = !isFacingRight;
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        speed *= -1;
     }
 
-    static class Animations
+    void OnBecameVisible()
     {
-        public const string celebrate = "Celebrate";
-        public const string die = "Die";
-        public const string idle = "Idle";
-        public const string jump = "Jump";
-        public const string run = "Run";
+        Invoke("MoveEnemy", 3f);
     }
 
-    static class InputKeys
+    void OnBecameInvisible()
     {
-        public const string jump = "Jump";
+        Invoke("StopEnemy", 3f);
     }
 
-    static class InputAxis
+    void MoveEnemy()
     {
-        public const string horizontal = "Horizontal";
+        isVisible = true;
+        animator.Play("Run");
+    }
+
+    void StopEnemy()
+    {
+        isVisible = false;
+        animator.Play("Idle");
     }
 
 }
