@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
     public float radiusCheck;
 
     /// <summary>
-    /// Is the player touching the ground?
+    /// Is the player touching the ground.
     /// </summary>
     private bool isTouchingGround;
 
@@ -70,7 +70,7 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// Frame-based update. Called once per frame
+    /// Frame-based update. Called once per frame.
     /// </summary>
     void Update()
     {
@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// Physics related updates
+    /// Physics related updates.
     /// </summary>
     void FixedUpdate()
     {
@@ -107,6 +107,9 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Executes the player's animation, taking into consideration the player vars.
+    /// </summary>
     void PlayAnimations()
     {
         if (isTouchingGround && rigidBody.velocity.x != 0)
@@ -123,12 +126,18 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Switches the side the player is facing.
+    /// </summary>
     void Flip()
     {
         isFacingRight = !isFacingRight;
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
 
+    /// <summary>
+    /// Player animations.
+    /// </summary>
     static class Animations
     {
         public const string celebrate = "Celebrate";
@@ -138,11 +147,17 @@ public class Player : MonoBehaviour
         public const string run = "Run";
     }
 
+    /// <summary>
+    /// Keys used by the player.
+    /// </summary>
     static class InputKeys
     {
         public const string jump = "Jump";
     }
 
+    /// <summary>
+    /// Axis used by the player.
+    /// </summary>
     static class InputAxis
     {
         public const string horizontal = "Horizontal";

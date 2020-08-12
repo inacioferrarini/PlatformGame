@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Script for Patroller enemy.
+/// Script for patroller objects.
+/// A patroller is an object that moves from one side to the other.
 /// </summary>
 public class Patroller : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class Patroller : MonoBehaviour
     public float speed;
 
     /// <summary>
-    /// Used to check if the enemy is touching the ground.
+    /// Used to check if the patroller is touching the ground.
     /// </summary>
     public Transform groundCheck;
 
@@ -28,7 +29,7 @@ public class Patroller : MonoBehaviour
     public float radiusCheck;
 
     /// <summary>
-    /// Is the enemy touching the ground?
+    /// Is the patroller touching the ground?
     /// </summary>
     private bool isTouchingGround;
 
@@ -45,7 +46,7 @@ public class Patroller : MonoBehaviour
     private Rigidbody2D rigidBody;
 
     /// <summary>
-    /// The animator for the enemy.
+    /// The animator for the patroller.
     /// </summary>
     private Animator animator;
 
@@ -91,6 +92,9 @@ public class Patroller : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Switches the side the patroller is facing.
+    /// </summary>
     void Flip()
     {
         isFacingRight = !isFacingRight;
@@ -98,22 +102,34 @@ public class Patroller : MonoBehaviour
         speed *= -1;
     }
 
+    /// <summary>
+    /// The patroller has became visible in the game.
+    /// </summary>
     void OnBecameVisible()
     {
         Invoke("MoveEnemy", 3f);
     }
 
+    /// <summary>
+    /// The patroller is no longer visible in the game.
+    /// </summary>
     void OnBecameInvisible()
     {
         Invoke("StopEnemy", 3f);
     }
 
+    /// <summary>
+    /// Stars moving the patroller.
+    /// </summary>
     void MoveEnemy()
     {
         isVisible = true;
         animator.Play("Run");
     }
 
+    /// <summary>
+    /// Stops moving the patroller.
+    /// </summary>
     void StopEnemy()
     {
         isVisible = false;
