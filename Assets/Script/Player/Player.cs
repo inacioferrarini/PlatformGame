@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
     private bool isTouchingGround;
 
     /// <summary>
-    /// Is the player jumping;
+    /// Is the player executing a jump movement?
     /// </summary>
     private bool isJumping;
 
@@ -49,6 +49,17 @@ public class Player : MonoBehaviour
     /// it is moving to.
     /// </summary>
     private bool isFacingRight = true;
+
+    /// <summary>
+    /// Is the player alive?
+    /// Used to control what the player can and cannot do.
+    /// </summary>
+    private bool isAlive = true;
+
+    /// <summary>
+    /// The current level was completed.
+    /// </summary>
+    private bool levelCompleted = false;
 
     /// <summary>
     /// The player's physics body.
@@ -76,7 +87,7 @@ public class Player : MonoBehaviour
     {
         isTouchingGround = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
-        if (Input.GetButtonDown(InputKeys.jump) && isTouchingGround)
+        if (Input.GetButtonDown(Constants.Input.Keys.jump) && isTouchingGround)
         {
             isJumping = true;
         }
@@ -89,22 +100,31 @@ public class Player : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        float move = 0f;
+        //float move = 0f;
 
-        move = Input.GetAxis(InputAxis.horizontal);
-
-        rigidBody.velocity = new Vector2(move * speed, rigidBody.velocity.y);
-
-        if ((move < 0 && isFacingRight) || (move > 0 && !isFacingRight))
+        if (isAlive && !levelCompleted) // TODO: why not call levelCompleted to something like `allowedToMove` or `freeze` ?!?
         {
-            Flip();
+            float move = Input.GetAxis(Constants.Input.Axis.horizontal);
+            rigidBody.velocity = new Vector2(move * speed, rigidBody.velocity.y);
+
+            if ((move < 0 && isFacingRight) || (move > 0 && !isFacingRight))
+            {
+                Flip();
+            }
+
+            if (isJumping)
+            {
+                rigidBody.AddForce(new Vector2(0f, jumpForce));
+                isJumping = false;
+            }
+        }
+        else
+        {
+            rigidBody.velocity = new Vector2(0, rigidBody.velocity.y);
         }
 
-        if (isJumping)
-        {
-            rigidBody.AddForce(new Vector2(0f, jumpForce));
-            isJumping = false;
-        }
+
+
     }
 
     /// <summary>
@@ -112,7 +132,15 @@ public class Player : MonoBehaviour
     /// </summary>
     void PlayAnimations()
     {
-        if (isTouchingGround && rigidBody.velocity.x != 0)
+        if (levelCompleted)
+        {
+            animator.Play(Animations.celebrate);
+        }
+        else if (!isAlive)
+        {
+            animator.Play(Animations.die);
+        }
+        else if (isTouchingGround && rigidBody.velocity.x != 0)
         {
             animator.Play(Animations.run);
         }
@@ -135,6 +163,43 @@ public class Player : MonoBehaviour
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
 
+
+    /// <summary>
+    /// When the player collides with an object that is not a trigger.
+    /// </summary>
+    /// <param name="collision">The collision source</param>
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // TODO: Delegate this to the game manager.
+        if (collision.gameObject.CompareTag(Constants.Collision.Tags.enemy))
+        {
+            PlayerDie();
+        }
+    }
+
+    /// <summary>
+    /// Player died.
+    /// </summary>
+    void PlayerDie()
+    {
+        // TODO: Delegate this to the game manager.
+        isAlive = false;
+        Physics2D.IgnoreLayerCollision(Constants.Collision.Layers.player, Constants.Collision.Layers.enemy);
+    }
+
+    /// <summary>
+    /// When the player collides with a trigger.
+    /// </summary>
+    /// <param name="other"></param>
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // TODO: Delegate this to the game manager.
+        if (other.CompareTag(Constants.Collision.Tags.exit))
+        {
+            levelCompleted = true;
+        }
+    }
+
     /// <summary>
     /// Player animations.
     /// </summary>
@@ -146,23 +211,5 @@ public class Player : MonoBehaviour
         public const string jump = "Jump";
         public const string run = "Run";
     }
-
-    /// <summary>
-    /// Keys used by the player.
-    /// </summary>
-    static class InputKeys
-    {
-        public const string jump = "Jump";
-    }
-
-    /// <summary>
-    /// Axis used by the player.
-    /// </summary>
-    static class InputAxis
-    {
-        public const string horizontal = "Horizontal";
-    }
-
-    public static string compareTag = "Player";
 
 }

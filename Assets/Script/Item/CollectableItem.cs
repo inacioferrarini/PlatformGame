@@ -7,12 +7,10 @@ using UnityEngine;
 /// </summary>
 public class CollectableItem : MonoBehaviour
 {
-
-    // TODO: Create tags
-
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(Player.compareTag))
+        // TODO: Delegate this to the game manager.
+        if (collision.CompareTag(Constants.Collision.Tags.player))
         {
             Destroy(gameObject);
         }
