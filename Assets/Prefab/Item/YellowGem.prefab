@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212480415263372436}
   - component: {fileID: 58753205039044224}
   - component: {fileID: 114643257823281496}
+  - component: {fileID: 114768448978515766}
   m_Layer: 0
   m_Name: YellowGem
   m_TagString: Untagged
@@ -69,6 +70,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inverted: 0
+--- !u!114 &114768448978515766
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1617868092940440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8936387d167a84e2f83e7bc9d03763ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212480415263372436
 SpriteRenderer:
   m_ObjectHideFlags: 1

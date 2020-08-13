@@ -163,4 +163,6 @@ public class Player : MonoBehaviour
         public const string horizontal = "Horizontal";
     }
 
+    public static string compareTag = "Player";
+
 }
