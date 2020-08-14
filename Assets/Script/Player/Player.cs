@@ -62,6 +62,11 @@ public class Player : MonoBehaviour
     private bool levelCompleted = false;
 
     /// <summary>
+    /// If the Player runned out of time.
+    /// </summary>
+    private bool timeIsOver = false;
+
+    /// <summary>
     /// The player's physics body.
     /// </summary>
     private Rigidbody2D rigidBody;
@@ -90,6 +95,12 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown(Constants.Input.Keys.jump) && isTouchingGround)
         {
             isJumping = true;
+        }
+
+        if (((int)GameManager.instance.time <= 0) && !timeIsOver) // TODO: Fix. This logic is bizarre and weird.
+        {
+            timeIsOver = true;
+            PlayerDie();
         }
 
         PlayAnimations();
@@ -185,6 +196,29 @@ public class Player : MonoBehaviour
         // TODO: Delegate this to the game manager.
         isAlive = false;
         Physics2D.IgnoreLayerCollision(Constants.Collision.Layers.player, Constants.Collision.Layers.enemy);
+    }
+
+    /// <summary>
+    /// Die animation finished.
+    /// </summary>
+    void DieAnimationFinished()
+    {
+        if (timeIsOver)
+        {
+            GameManager.instance.SetOverlay(GameManager.GameStatus.LOSE);  // TODO: Delegate this to the game manager.
+        }
+        else
+        {
+            GameManager.instance.SetOverlay(GameManager.GameStatus.DIE);   // TODO: Delegate this to the game manager.
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    void CelebrationAnimationFinished()
+    {
+        GameManager.instance.SetOverlay(GameManager.GameStatus.WIN);       // TODO: Delegate this to the game manager.
     }
 
     /// <summary>
