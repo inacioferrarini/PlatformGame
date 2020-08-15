@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Player score.
     /// </summary>
-    private int score;
+    public int score;   // TODO: must be private
 
     /// <summary>
     /// Possible game status.

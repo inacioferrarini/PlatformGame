@@ -12,6 +12,7 @@ public class CollectableItem : MonoBehaviour
         // TODO: Delegate this to the game manager.
         if (collision.CompareTag(Constants.Collision.Tags.player))
         {
+            GameManager.instance.score++;
             Destroy(gameObject);
         }
     }
