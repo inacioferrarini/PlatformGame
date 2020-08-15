@@ -76,6 +76,10 @@ public class Player : MonoBehaviour
     /// </summary>
     private Animator animator;
 
+    public AudioClip fxWin;
+    public AudioClip fxDie;
+    public AudioClip fxJump;
+
     /// <summary>
     /// Initialization.
     /// </summary>
@@ -95,6 +99,10 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown(Constants.Input.Keys.jump) && isTouchingGround)
         {
             isJumping = true;
+            if (isAlive && !levelCompleted)
+            {
+                SoundManager.instance.PlayFxPlayer(fxJump);
+            }
         }
 
         if (((int)GameManager.instance.time <= 0) && !timeIsOver) // TODO: Fix. This logic is bizarre and weird.
@@ -111,8 +119,6 @@ public class Player : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        //float move = 0f;
-
         if (isAlive && !levelCompleted) // TODO: why not call levelCompleted to something like `allowedToMove` or `freeze` ?!?
         {
             float move = Input.GetAxis(Constants.Input.Axis.horizontal);
@@ -196,6 +202,7 @@ public class Player : MonoBehaviour
         // TODO: Delegate this to the game manager.
         isAlive = false;
         Physics2D.IgnoreLayerCollision(Constants.Collision.Layers.player, Constants.Collision.Layers.enemy);
+        SoundManager.instance.PlayFxPlayer(fxDie);
     }
 
     /// <summary>
@@ -231,6 +238,7 @@ public class Player : MonoBehaviour
         if (other.CompareTag(Constants.Collision.Tags.exit))
         {
             levelCompleted = true;
+            SoundManager.instance.PlayFxPlayer(fxWin);
         }
     }
 
