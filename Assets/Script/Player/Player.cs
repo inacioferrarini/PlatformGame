@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
+// TODO: Create a Character to handle common parameters this.
+
 /// <summary>
 /// Script user to control the player.
 /// </summary>
@@ -187,6 +189,9 @@ public class Player : MonoBehaviour
     /// <param name="collision">The collision source</param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
+
+
         // TODO: Delegate this to the game manager.
         if (collision.gameObject.CompareTag(Constants.Collision.Tags.enemy))
         {

@@ -15,7 +15,7 @@ public class FloatingItem : MonoBehaviour
     public bool inverted;
 
     private AnimationCurve curve;
-    private Vector3 gemPosition;
+    private Vector3 itemPosition;
 
     /// <summary>
     /// Initialization.
@@ -26,7 +26,7 @@ public class FloatingItem : MonoBehaviour
         curve.preWrapMode = WrapMode.PingPong;
         curve.postWrapMode = WrapMode.PingPong;
 
-        gemPosition = transform.position;
+        itemPosition = transform.position;
     }
 
     /// <summary>
@@ -36,14 +36,12 @@ public class FloatingItem : MonoBehaviour
     {
         if (inverted)
         {
-            transform.position = new Vector3(gemPosition.x, gemPosition.y - curve.Evaluate(Time.time), gemPosition.z);
+            transform.position = new Vector3(itemPosition.x, itemPosition.y - curve.Evaluate(Time.time), itemPosition.z);
         }
         else
         {
-            transform.position = new Vector3(gemPosition.x, gemPosition.y + curve.Evaluate(Time.time), gemPosition.z);
+            transform.position = new Vector3(itemPosition.x, itemPosition.y + curve.Evaluate(Time.time), itemPosition.z);
         }
-
-
     }
 
 }

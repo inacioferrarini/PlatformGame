@@ -52,6 +52,7 @@ static class Constants
             public const string player = "Player";
             public const string enemy = "Enemy";
             public const string exit = "Exit";
+            public const string gem = "Gem";
         }
 
     }

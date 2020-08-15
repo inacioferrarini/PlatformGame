@@ -57,6 +57,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public GameStatus gameStatus;
 
+
+
+
+
+
+
     /// <summary>
     /// Initialization.
     /// </summary>
@@ -113,6 +119,40 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    // TODO: Create a OverlayManager to handle this.
+    // TODO: Create a Collision Manager to handle this.
+
+    /// <summary>
+    /// Handles the collisions between game objects.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="other"></param>
+    public void HandleCollision(GameObject sender, Collider2D other)
+    {
+        // TODO: collisionManager.EvaluateCollision(sender, other)
+
+        if ((sender.CompareTag(Constants.Collision.Tags.player) && other.CompareTag(Constants.Collision.Tags.gem))   // TODO: Improve this . Create a method that returns an Enum.
+            || (sender.CompareTag(Constants.Collision.Tags.gem) && other.CompareTag(Constants.Collision.Tags.player)))
+        {
+            HandleGetGem(sender.GetComponent<CollectableItem>());
+        }
+
+
+
+    }
+
+    private void HandleGetGem(CollectableItem item)
+    {
+        score += item.points;
+        SoundManager.instance.PlayFxItem(item.collectFx);
+        Destroy(item.gameObject);
+    }
+
+
+
+
+
 
     /// <summary>
     /// Sets the overlay.

@@ -11,6 +11,7 @@ public class SoundManager : MonoBehaviour
 
     void Awake()
     {
+        // Since it will be called from the GameManager, it does not need to be singleton.
         // TODO: Improve logic. Use singleton without using a GameObject.
         if (instance == null)
         {
