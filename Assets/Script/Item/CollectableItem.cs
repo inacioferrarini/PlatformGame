@@ -20,12 +20,8 @@ public class CollectableItem : MonoBehaviour
     /// </summary>
     public int points;
 
-    /// <summary>
-    /// Something collided with the item.
-    /// </summary>
-    /// <param name="collision"></param>
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        GameManager.instance.HandleCollision(gameObject, collision);
+        GameManager.instance.HandleCollision(gameObject, other.gameObject);
     }
 }

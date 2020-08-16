@@ -123,32 +123,48 @@ public class GameManager : MonoBehaviour
     // TODO: Create a OverlayManager to handle this.
     // TODO: Create a Collision Manager to handle this.
 
-    /// <summary>
-    /// Handles the collisions between game objects.
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="other"></param>
-    public void HandleCollision(GameObject sender, Collider2D other)
+    public void HandleCollision(GameObject sender, GameObject other)
     {
         // TODO: collisionManager.EvaluateCollision(sender, other)
 
         if ((sender.CompareTag(Constants.Collision.Tags.player) && other.CompareTag(Constants.Collision.Tags.gem))   // TODO: Improve this . Create a method that returns an Enum.
             || (sender.CompareTag(Constants.Collision.Tags.gem) && other.CompareTag(Constants.Collision.Tags.player)))
         {
-            HandleGetGem(sender.GetComponent<CollectableItem>());
+            HandlePlayerGetGem(sender.GetComponent<CollectableItem>());   // TODO: It may crash
         }
 
+        if ((sender.CompareTag(Constants.Collision.Tags.player) && other.CompareTag(Constants.Collision.Tags.exit))   // TODO: Improve this . Create a method that returns an Enum.
+            || (sender.CompareTag(Constants.Collision.Tags.exit) && other.CompareTag(Constants.Collision.Tags.player)))
+        {
+            HandlePlayerExit(sender.GetComponent<Player>());
+        }
 
-
+        if ((sender.CompareTag(Constants.Collision.Tags.player) && other.CompareTag(Constants.Collision.Tags.enemy))   // TODO: Improve this . Create a method that returns an Enum.
+            || (sender.CompareTag(Constants.Collision.Tags.enemy) && other.CompareTag(Constants.Collision.Tags.player)))
+        {
+            HandlePlayerDie(sender.GetComponent<Player>());
+        }
     }
 
-    private void HandleGetGem(CollectableItem item)
+    private void HandlePlayerGetGem(CollectableItem item)
     {
         score += item.points;
         SoundManager.instance.PlayFxItem(item.collectFx);
         Destroy(item.gameObject);
     }
 
+    private void HandlePlayerExit(Player player)
+    {
+        player.LevelCompleted();
+        SoundManager.instance.PlayFxItem(player.fxWin);
+    }
+
+    private void HandlePlayerDie(Player player)
+    {
+        player.PlayerDie();
+        Physics2D.IgnoreLayerCollision(Constants.Collision.Layers.player, Constants.Collision.Layers.enemy);
+        SoundManager.instance.PlayFxPlayer(player.fxDie);
+    }
 
 
 

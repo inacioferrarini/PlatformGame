@@ -141,10 +141,16 @@ public class Player : MonoBehaviour
         {
             rigidBody.velocity = new Vector2(0, rigidBody.velocity.y);
         }
-
-
-
     }
+
+
+
+
+
+
+
+
+
 
     /// <summary>
     /// Executes the player's animation, taking into consideration the player vars.
@@ -173,6 +179,26 @@ public class Player : MonoBehaviour
         }
     }
 
+    //
+    // Collisions
+    //
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        GameManager.instance.HandleCollision(gameObject, other.gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        GameManager.instance.HandleCollision(gameObject, other.gameObject);
+    }
+
+
+
+
+
+
+
     /// <summary>
     /// Switches the side the player is facing.
     /// </summary>
@@ -182,32 +208,20 @@ public class Player : MonoBehaviour
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
 
-
     /// <summary>
-    /// When the player collides with an object that is not a trigger.
+    /// The current level was completed
     /// </summary>
-    /// <param name="collision">The collision source</param>
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void LevelCompleted()
     {
-
-
-
-        // TODO: Delegate this to the game manager.
-        if (collision.gameObject.CompareTag(Constants.Collision.Tags.enemy))
-        {
-            PlayerDie();
-        }
+        levelCompleted = true;
     }
 
     /// <summary>
     /// Player died.
     /// </summary>
-    void PlayerDie()
+    public void PlayerDie()
     {
-        // TODO: Delegate this to the game manager.
         isAlive = false;
-        Physics2D.IgnoreLayerCollision(Constants.Collision.Layers.player, Constants.Collision.Layers.enemy);
-        SoundManager.instance.PlayFxPlayer(fxDie);
     }
 
     /// <summary>
@@ -226,25 +240,11 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Celebrate animation finished.
     /// </summary>
     void CelebrationAnimationFinished()
     {
         GameManager.instance.SetOverlay(GameManager.GameStatus.WIN);       // TODO: Delegate this to the game manager.
-    }
-
-    /// <summary>
-    /// When the player collides with a trigger.
-    /// </summary>
-    /// <param name="other"></param>
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        // TODO: Delegate this to the game manager.
-        if (other.CompareTag(Constants.Collision.Tags.exit))
-        {
-            levelCompleted = true;
-            SoundManager.instance.PlayFxPlayer(fxWin);
-        }
     }
 
     /// <summary>
