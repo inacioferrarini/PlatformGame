@@ -136,12 +136,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5072f2a4068054507b4ba13a7723f548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  groundCheck: {fileID: 4072946016660848}
-  groundLayer:
+  m_speed: 0
+  m_groundCheck: {fileID: 0}
+  m_groundLayer:
     serializedVersion: 2
     m_Bits: 256
-  radiusCheck: 0.2
+  m_radiusCheck: 0
 --- !u!212 &212836139870892384
 SpriteRenderer:
   m_ObjectHideFlags: 1

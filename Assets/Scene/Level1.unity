@@ -5295,8 +5295,7 @@ MonoBehaviour:
   overlay: {fileID: 1212834245}
   timeHudText: {fileID: 274180300}
   scoreHudText: {fileID: 1462415720}
-  time: 0
-  score: 0
+  mp_time: 0
   gameStatus: 3
 --- !u!4 &1547628872
 Transform:
@@ -5357,22 +5356,22 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114224076172704498, guid: 70ed363c7445245f4a592b93deed552c,
         type: 2}
-      propertyPath: fxWin
-      value: 
-      objectReference: {fileID: 8300000, guid: 7935da5f0ccd84bf1b1c9352f9dde704, type: 3}
+      propertyPath: m_groundLayer.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 114224076172704498, guid: 70ed363c7445245f4a592b93deed552c,
         type: 2}
-      propertyPath: fxDie
+      propertyPath: m_groundCheck
       value: 
-      objectReference: {fileID: 8300000, guid: 9ffe0f1950f694214a6e96d32d1cad2a, type: 3}
-    - target: {fileID: 114224076172704498, guid: 70ed363c7445245f4a592b93deed552c,
-        type: 2}
-      propertyPath: fxJump
-      value: 
-      objectReference: {fileID: 8300000, guid: db5d6d1ed91ff4f568e3f0933b9d0e32, type: 3}
+      objectReference: {fileID: 1732494715}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 70ed363c7445245f4a592b93deed552c, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &1732494715 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4020730988043408, guid: 70ed363c7445245f4a592b93deed552c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1732494714}
 --- !u!1 &1740492126
 GameObject:
   m_ObjectHideFlags: 0
