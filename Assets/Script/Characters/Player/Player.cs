@@ -152,10 +152,12 @@ public class Player : Character
     {
         if (mp_timeIsOver)
         {
+            // TODO: Set Game State
             GameManager.instance.SetOverlay(GameManager.GameStatus.LOSE);  // TODO: Delegate this to the game manager.
         }
         else
         {
+            // TODO: Set Game State
             GameManager.instance.SetOverlay(GameManager.GameStatus.DIE);   // TODO: Delegate this to the game manager.
         }
     }
@@ -165,6 +167,7 @@ public class Player : Character
     /// </summary>
     void CelebrationAnimationFinished()
     {
+        // TODO: Set Game State on GameManager
         GameManager.instance.SetOverlay(GameManager.GameStatus.WIN);       // TODO: Delegate this to the game manager.
     }
 
