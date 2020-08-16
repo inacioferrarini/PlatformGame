@@ -137,12 +137,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6.5
-  jumpForce: 635
   groundCheck: {fileID: 4020730988043408}
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
   radiusCheck: 0.2
+  jumpForce: 635
+  m_winFx: {fileID: 8300000, guid: 7935da5f0ccd84bf1b1c9352f9dde704, type: 3}
+  m_dieFx: {fileID: 8300000, guid: 9ffe0f1950f694214a6e96d32d1cad2a, type: 3}
+  m_jumpFx: {fileID: 8300000, guid: db5d6d1ed91ff4f568e3f0933b9d0e32, type: 3}
 --- !u!212 &212790342807135196
 SpriteRenderer:
   m_ObjectHideFlags: 1

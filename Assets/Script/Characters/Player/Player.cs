@@ -5,52 +5,35 @@
 /// </summary>
 public class Player : Character
 {
-    /// <summary>
-    /// Force to be applied to the rigid body upon jump.
-    /// </summary>
     public int jumpForce;
 
-    /// <summary>
-    /// Is the player executing a jump movement?
-    /// </summary>
-    private bool isJumping;
+    // Player State
+    private bool mp_isJumping = false;
+    private bool mp_isAlive = true;
+    private bool mp_levelCompleted = false;
+    private bool mp_timeIsOver = false;
 
-    /// <summary>
-    /// Is the player alive?
-    /// Used to control what the player can and cannot do.
-    /// </summary>
-    private bool isAlive = true;
-
-    /// <summary>
-    /// The current level was completed.
-    /// </summary>
-    private bool levelCompleted = false;
-
-    /// <summary>
-    /// If the Player runned out of time.
-    /// </summary>
-    private bool timeIsOver = false;
-
-    public AudioClip fxWin;
-    public AudioClip fxDie;
-    public AudioClip fxJump;
+    // Player Audio
+    public AudioClip m_winFx;
+    public AudioClip m_dieFx;
+    public AudioClip m_jumpFx;
 
     private void Update()
     {
-        grounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        m_grounded = Physics2D.OverlapCircle(m_groundCheck.position, 0.2f, m_groundLayer);
 
-        if (Input.GetButtonDown(Constants.Input.Keys.jump) && grounded)
+        if (Input.GetButtonDown(Constants.Input.Keys.jump) && m_grounded)
         {
-            isJumping = true;
-            if (isAlive && !levelCompleted)
+            mp_isJumping = true;
+            if (mp_isAlive && !mp_levelCompleted)
             {
-                SoundManager.instance.PlayFxPlayer(fxJump);
+                SoundManager.instance.PlayFxPlayer(m_jumpFx);
             }
         }
 
-        if (((int)GameManager.instance.mp_time <= 0) && !timeIsOver) // TODO: Fix. This logic is bizarre and weird.   TODO: mp_time must be private
+        if (((int)GameManager.instance.mp_time <= 0) && !mp_timeIsOver) // TODO: Fix. This logic is bizarre and weird.   TODO: mp_time must be private
         {
-            timeIsOver = true;
+            mp_timeIsOver = true;
             PlayerDie();
         }
 
@@ -59,25 +42,25 @@ public class Player : Character
 
     private void FixedUpdate()
     {
-        if (isAlive && !levelCompleted) // TODO: why not call levelCompleted to something like `allowedToMove` or `freeze` ?!?
+        if (mp_isAlive && !mp_levelCompleted) // TODO: why not call levelCompleted to something like `allowedToMove` or `freeze` ?!?
         {
             float move = Input.GetAxis(Constants.Input.Axis.horizontal);
-            rigidBody.velocity = new Vector2(move * speed, rigidBody.velocity.y);
+            m_rigidBody.velocity = new Vector2(move * m_speed, m_rigidBody.velocity.y);
 
-            if ((move < 0 && isFacingRight) || (move > 0 && !isFacingRight))
+            if ((move < 0 && m_isFacingRight) || (move > 0 && !m_isFacingRight))
             {
                 Flip();
             }
 
-            if (isJumping)
+            if (mp_isJumping)    // TODO: rename para mp_canJump or similar
             {
-                rigidBody.AddForce(new Vector2(0f, jumpForce));
-                isJumping = false;
+                m_rigidBody.AddForce(new Vector2(0f, jumpForce));
+                mp_isJumping = false;
             }
         }
         else
         {
-            rigidBody.velocity = new Vector2(0, rigidBody.velocity.y);
+            m_rigidBody.velocity = new Vector2(0, m_rigidBody.velocity.y);
         }
     }
 
@@ -95,25 +78,25 @@ public class Player : Character
     /// </summary>
     void PlayAnimations()
     {
-        if (levelCompleted)
+        if (mp_levelCompleted)
         {
-            animator.Play(Animations.celebrate);
+            m_animator.Play(Animations.celebrate);
         }
-        else if (!isAlive)
+        else if (!mp_isAlive)
         {
-            animator.Play(Animations.die);
+            m_animator.Play(Animations.die);
         }
-        else if (grounded && rigidBody.velocity.x != 0)
+        else if (m_grounded && m_rigidBody.velocity.x != 0)
         {
-            animator.Play(Animations.run);
+            m_animator.Play(Animations.run);
         }
-        else if (grounded && rigidBody.velocity.x == 0)
+        else if (m_grounded && m_rigidBody.velocity.x == 0)
         {
-            animator.Play(Animations.idle);
+            m_animator.Play(Animations.idle);
         }
-        else if (!grounded)
+        else if (!m_grounded)
         {
-            animator.Play(Animations.jump);
+            m_animator.Play(Animations.jump);
         }
     }
 
@@ -132,26 +115,26 @@ public class Player : Character
     }
 
 
+    //
+    // Animations
+    //
 
-
-
-
-
-    /// <summary>
-    /// Switches the side the player is facing.
-    /// </summary>
-    void Flip()
+    private void Flip()
     {
-        isFacingRight = !isFacingRight;
+        m_isFacingRight = !m_isFacingRight;
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
+
+
+
+
 
     /// <summary>
     /// The current level was completed
     /// </summary>
     public void LevelCompleted()
     {
-        levelCompleted = true;
+        mp_levelCompleted = true;
     }
 
     /// <summary>
@@ -159,7 +142,7 @@ public class Player : Character
     /// </summary>
     public void PlayerDie()
     {
-        isAlive = false;
+        mp_isAlive = false;
     }
 
     /// <summary>
@@ -167,7 +150,7 @@ public class Player : Character
     /// </summary>
     void DieAnimationFinished()
     {
-        if (timeIsOver)
+        if (mp_timeIsOver)
         {
             GameManager.instance.SetOverlay(GameManager.GameStatus.LOSE);  // TODO: Delegate this to the game manager.
         }
@@ -184,6 +167,8 @@ public class Player : Character
     {
         GameManager.instance.SetOverlay(GameManager.GameStatus.WIN);       // TODO: Delegate this to the game manager.
     }
+
+
 
     /// <summary>
     /// Player animations.

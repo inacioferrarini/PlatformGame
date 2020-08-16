@@ -19,17 +19,17 @@ public class BoundedFollowerCamera : MonoBehaviour
     /// <summary>
     /// How long to start following target.
     /// </summary>
-    public Vector2 delay;   // was smoothTime
+    public Vector2 delay;
 
     /// <summary>
     /// lower bound for camera limit.
     /// </summary>
-    public Vector2 minLimit; // lower bounds
+    public Vector2 minLimit;
 
     /// <summary>
     /// Higher bound for camera limit.
     /// </summary>
-    public Vector2 maxLimit; // higher bounds
+    public Vector2 maxLimit;
 
     private void Start()
     {

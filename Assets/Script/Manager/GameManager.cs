@@ -33,7 +33,7 @@ public partial class GameManager : MonoBehaviour
     public Text scoreHudText;
 
     public float mp_time;
-    public int mp_score;
+    private int mp_score;
 
     /// <summary>
     /// Possible game status.
@@ -111,10 +111,6 @@ public partial class GameManager : MonoBehaviour
     {
         mp_collisionManager.HandleCollision(object1, object2);
     }
-
-    //
-    // TODO: Create a OverlayManager to handle Overlayes.
-    //
 
     /// <summary>
     /// Sets the overlay.

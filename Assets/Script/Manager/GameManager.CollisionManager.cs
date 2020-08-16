@@ -67,14 +67,14 @@ public partial class GameManager
         private void HandlePlayerExit(Player player)
         {
             player.LevelCompleted();
-            SoundManager.instance.PlayFxItem(player.fxWin);
+            SoundManager.instance.PlayFxItem(player.m_winFx);
         }
 
         private void HandlePlayerDie(Player player)
         {
             player.PlayerDie();
             Physics2D.IgnoreLayerCollision(Constants.Collision.Layers.player, Constants.Collision.Layers.enemy);
-            SoundManager.instance.PlayFxPlayer(player.fxDie);
+            SoundManager.instance.PlayFxPlayer(player.m_dieFx);
         }
 
     }
