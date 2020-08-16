@@ -48,7 +48,7 @@ public class Player : Character
             }
         }
 
-        if (((int)GameManager.instance.time <= 0) && !timeIsOver) // TODO: Fix. This logic is bizarre and weird.
+        if (((int)GameManager.instance.mp_time <= 0) && !timeIsOver) // TODO: Fix. This logic is bizarre and weird.   TODO: mp_time must be private
         {
             timeIsOver = true;
             PlayerDie();

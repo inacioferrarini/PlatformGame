@@ -3,9 +3,9 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// 
+/// Manages the Game itself.
 /// </summary>
-public class GameManager : MonoBehaviour
+public partial class GameManager : MonoBehaviour
 {
     /// <summary>
     /// Singleton access.
@@ -32,15 +32,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public Text scoreHudText;
 
-    /// <summary>
-    /// Game time itself.
-    /// </summary>
-    public float time;   // TODO: must be private
-
-    /// <summary>
-    /// Player score.
-    /// </summary>
-    public int score;   // TODO: must be private
+    public float mp_time;
+    public int mp_score;
 
     /// <summary>
     /// Possible game status.
@@ -55,6 +48,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public GameStatus gameStatus;
 
+    private CollisionManager mp_collisionManager;
+    private OverlayManager mp_overlayManager;
 
     private void Awake()
     {
@@ -71,8 +66,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        time = 30f; // TODO: Implement a per-level approach
-        score = 0;
+        mp_collisionManager = new CollisionManager(this);
+        mp_overlayManager = new OverlayManager(this);
+
+        mp_time = 30f; // TODO: Implement a per-level approach
+        mp_score = 0;
         gameStatus = GameStatus.PLAY;
         overlay.enabled = false;
         Physics2D.IgnoreLayerCollision(Constants.Collision.Layers.player, Constants.Collision.Layers.enemy, false);
@@ -82,13 +80,13 @@ public class GameManager : MonoBehaviour
     {
         if (gameStatus == GameStatus.PLAY)
         {
-            time -= Time.deltaTime;
-            int timeInt = (int)time;
+            mp_time -= Time.deltaTime;
+            int timeInt = (int)mp_time;
 
             if (timeInt >= 0)
             {
-                timeHudText.text = "Time: " + timeInt.ToString(); // TODO: Use a string formatter
-                scoreHudText.text = "Score: " + score.ToString(); // TODO: Use a string formatter
+                timeHudText.text = string.Format("Time: {0}", timeInt);
+                scoreHudText.text = string.Format("Score: {0}", mp_score);
             }
         }
         else if (Input.GetButton(Constants.Input.Keys.jump))
@@ -104,75 +102,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // TODO: Create a OverlayManager to handle this.
-    // TODO: Create a Collision Manager to handle this.
-
-    public void HandleCollision(GameObject sender, GameObject other)
+    /// <summary>
+    /// Handles collisions between two gameObjects.
+    /// </summary>
+    /// <param name="object1">One gameObject</param>
+    /// <param name="object2">The Other gameObject</param>
+    public void HandleCollision(GameObject object1, GameObject object2)
     {
-        // TODO: collisionManager.EvaluateCollision(sender, other)
-
-        // TODO: Rename to object1, object2
-
-        if ((sender.CompareTag(Constants.Collision.Tags.player) && other.CompareTag(Constants.Collision.Tags.gem))
-            || (sender.CompareTag(Constants.Collision.Tags.gem) && other.CompareTag(Constants.Collision.Tags.player)))
-        {
-            CollectableItem item = sender.GetComponent<CollectableItem>();
-            if (other.CompareTag(Constants.Collision.Tags.gem))  // TODO: Change this tag to Item
-            {
-                item = other.GetComponent<CollectableItem>();
-            }
-
-            HandlePlayerGetGem(item);
-        }
-
-        if ((sender.CompareTag(Constants.Collision.Tags.player) && other.CompareTag(Constants.Collision.Tags.exit))   // TODO: Improve this . Create a method that returns an Enum.
-            || (sender.CompareTag(Constants.Collision.Tags.exit) && other.CompareTag(Constants.Collision.Tags.player)))
-        {
-            Player player = sender.GetComponent<Player>();
-            if (other.CompareTag(Constants.Collision.Tags.player))
-            {
-                player = other.GetComponent<Player>();
-            }
-
-            HandlePlayerExit(player);
-        }
-
-        if ((sender.CompareTag(Constants.Collision.Tags.player) && other.CompareTag(Constants.Collision.Tags.enemy))   // TODO: Improve this . Create a method that returns an Enum.
-            || (sender.CompareTag(Constants.Collision.Tags.enemy) && other.CompareTag(Constants.Collision.Tags.player)))
-        {
-            Player player = sender.GetComponent<Player>();
-            if (other.CompareTag(Constants.Collision.Tags.player))
-            {
-                player = other.GetComponent<Player>();
-            }
-
-            HandlePlayerDie(player);
-        }
+        mp_collisionManager.HandleCollision(object1, object2);
     }
 
-    private void HandlePlayerGetGem(CollectableItem item)
-    {
-        score += item.points;
-        SoundManager.instance.PlayFxItem(item.collectFx);
-        Destroy(item.gameObject);
-    }
-
-    private void HandlePlayerExit(Player player)
-    {
-        player.LevelCompleted();
-        SoundManager.instance.PlayFxItem(player.fxWin);
-    }
-
-    private void HandlePlayerDie(Player player)
-    {
-        player.PlayerDie();
-        Physics2D.IgnoreLayerCollision(Constants.Collision.Layers.player, Constants.Collision.Layers.enemy);
-        SoundManager.instance.PlayFxPlayer(player.fxDie);
-    }
-
-
-
-
+    //
+    // TODO: Create a OverlayManager to handle Overlayes.
+    //
 
     /// <summary>
     /// Sets the overlay.
@@ -180,9 +122,7 @@ public class GameManager : MonoBehaviour
     /// <param name="p_gameStatus">The GameStatus to use the Overlay</param>
     public void SetOverlay(GameStatus p_gameStatus)
     {
-        gameStatus = p_gameStatus; // TODO: This should not be here. The GameManager should control the status.
-        overlay.enabled = true;
-        overlay.sprite = overlaySpriteList[(int)gameStatus];
+        mp_overlayManager.SetOverlay(p_gameStatus);
     }
 
 }
