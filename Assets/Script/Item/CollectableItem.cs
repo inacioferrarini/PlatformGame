@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 
-// TODO: Create a interface for items that play audio
-
 /// <summary>
 /// A kind of item that can be collected during the game.
 /// </summary>
