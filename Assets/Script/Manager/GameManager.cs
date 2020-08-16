@@ -46,13 +46,7 @@ public partial class GameManager : MonoBehaviour
     /// <summary>
     /// Current status of the game.
     /// </summary>
-    private GameStatus mp_gameStatus; // on update, update HUD also.
-
-
-
-
-
-
+    private GameStatus mp_gameStatus;
 
     private CollisionManager mp_collisionManager;
     private OverlayManager mp_overlayManager;
