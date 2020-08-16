@@ -18,6 +18,14 @@ public class Player : Character
     public AudioClip m_dieFx;
     public AudioClip m_jumpFx;
 
+    private bool CanMove
+    {
+        get
+        {
+            return mp_isAlive && !mp_levelCompleted;
+        }
+    }
+
     private void Update()
     {
         m_grounded = Physics2D.OverlapCircle(m_groundCheck.position, 0.2f, m_groundLayer);
@@ -25,7 +33,7 @@ public class Player : Character
         if (Input.GetButtonDown(Constants.Input.Keys.jump) && m_grounded)
         {
             mp_isJumping = true;
-            if (mp_isAlive && !mp_levelCompleted)
+            if (CanMove)
             {
                 SoundManager.instance.PlayFxPlayer(m_jumpFx);
             }
@@ -42,7 +50,7 @@ public class Player : Character
 
     private void FixedUpdate()
     {
-        if (mp_isAlive && !mp_levelCompleted) // TODO: why not call levelCompleted to something like `allowedToMove` or `freeze` ?!?
+        if (CanMove)
         {
             float move = Input.GetAxis(Constants.Input.Axis.horizontal);
             m_rigidBody.velocity = new Vector2(move * m_speed, m_rigidBody.velocity.y);
@@ -76,7 +84,7 @@ public class Player : Character
     /// <summary>
     /// Executes the player's animation, taking into consideration the player vars.
     /// </summary>
-    void PlayAnimations()
+    void PlayAnimations() // TODO: Migrate this to Animator
     {
         if (mp_levelCompleted)
         {

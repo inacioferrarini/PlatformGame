@@ -50,13 +50,19 @@ public class Patroller : Character
     void MoveEnemy()
     {
         mp_isVisible = true;
-        m_animator.Play("Run");
+        m_animator.Play(Animations.run);
     }
 
     void StopEnemy()
     {
         mp_isVisible = false;
-        m_animator.Play("Idle");
+        m_animator.Play(Animations.idle);
+    }
+
+    static class Animations
+    {
+        public const string idle = "Idle";
+        public const string run = "Run";
     }
 
 }
