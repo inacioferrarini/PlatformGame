@@ -17,10 +17,7 @@ public class FloatingItem : MonoBehaviour
     private AnimationCurve curve;
     private Vector3 itemPosition;
 
-    /// <summary>
-    /// Initialization.
-    /// </summary>
-    void Start()
+    private void Start()
     {
         curve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.8f, 0.2f));
         curve.preWrapMode = WrapMode.PingPong;
@@ -29,10 +26,7 @@ public class FloatingItem : MonoBehaviour
         itemPosition = transform.position;
     }
 
-    /// <summary>
-    /// Frame-based update. Called once per frame
-    /// </summary>
-    void Update()
+    private void Update()
     {
         if (inverted)
         {

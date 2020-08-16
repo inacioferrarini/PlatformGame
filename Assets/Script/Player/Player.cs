@@ -82,19 +82,13 @@ public class Player : MonoBehaviour
     public AudioClip fxDie;
     public AudioClip fxJump;
 
-    /// <summary>
-    /// Initialization.
-    /// </summary>
-    void Start()
+    private void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
 
-    /// <summary>
-    /// Frame-based update. Called once per frame.
-    /// </summary>
-    void Update()
+    private void Update()
     {
         isTouchingGround = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
@@ -116,10 +110,7 @@ public class Player : MonoBehaviour
         PlayAnimations();
     }
 
-    /// <summary>
-    /// Physics related updates.
-    /// </summary>
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (isAlive && !levelCompleted) // TODO: why not call levelCompleted to something like `allowedToMove` or `freeze` ?!?
         {

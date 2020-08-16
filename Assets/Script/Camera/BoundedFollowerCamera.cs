@@ -33,18 +33,12 @@ public class BoundedFollowerCamera : MonoBehaviour
     /// </summary>
     public Vector2 maxLimit; // higher bounds
 
-    /// <summary>
-    /// Initialization.
-    /// </summary>
-    void Start()
+    private void Start()
     {
         transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
     }
 
-    /// <summary>
-    /// Frame-based update. Called once per frame
-    /// </summary>
-    void Update()
+    private void Update()
     {
         if (target != null)
         {

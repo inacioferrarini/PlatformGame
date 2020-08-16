@@ -55,19 +55,13 @@ public class Patroller : MonoBehaviour
     /// </summary>
     private bool isVisible = false;
 
-    /// <summary>
-    /// Initialization.
-    /// </summary>
-    void Start()
+    private void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
 
-    /// <summary>
-    /// Frame-based update. Called once per frame
-    /// </summary>
-    void Update()
+    private void Update()
     {
         isTouchingGround = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
@@ -77,10 +71,7 @@ public class Patroller : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Physics related updates
-    /// </summary>
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (isVisible)
         {

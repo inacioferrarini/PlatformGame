@@ -30,21 +30,14 @@ public class ParallaxScroller : MonoBehaviour
     /// </summary>
     public new Transform camera;
 
-
     private Vector3 previewCamera;
 
-    /// <summary>
-    /// Initialization.
-    /// </summary>
-    void Start()
+    private void Start()
     {
         previewCamera = camera.position;
     }
 
-    /// <summary>
-    /// Frame-based update. Called once per frame
-    /// </summary>
-    void Update()
+    private void Update()
     {
         for (int i = 0; i < backgroundLayerList.Length; i++)
         {

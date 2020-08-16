@@ -58,15 +58,7 @@ public class GameManager : MonoBehaviour
     public GameStatus gameStatus;
 
 
-
-
-
-
-
-    /// <summary>
-    /// Initialization.
-    /// </summary>
-    void Awake()
+    private void Awake()
     {
         // TODO: Improve logic. Use singleton without using a GameObject.
         if (instance == null)
@@ -79,10 +71,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Initialization.
-    /// </summary>
-    void Start()
+    private void Start()
     {
         time = 30f; // TODO: Implement a per-level approach
         score = 0;
@@ -91,10 +80,7 @@ public class GameManager : MonoBehaviour
         Physics2D.IgnoreLayerCollision(Constants.Collision.Layers.player, Constants.Collision.Layers.enemy, false);
     }
 
-    /// <summary>
-    /// Frame-based update. Called once per frame.
-    /// </summary>
-    void Update()
+    private void Update()
     {
         if (gameStatus == GameStatus.PLAY)
         {
@@ -127,22 +113,42 @@ public class GameManager : MonoBehaviour
     {
         // TODO: collisionManager.EvaluateCollision(sender, other)
 
-        if ((sender.CompareTag(Constants.Collision.Tags.player) && other.CompareTag(Constants.Collision.Tags.gem))   // TODO: Improve this . Create a method that returns an Enum.
+        // TODO: Rename to object1, object2
+
+        if ((sender.CompareTag(Constants.Collision.Tags.player) && other.CompareTag(Constants.Collision.Tags.gem))
             || (sender.CompareTag(Constants.Collision.Tags.gem) && other.CompareTag(Constants.Collision.Tags.player)))
         {
-            HandlePlayerGetGem(sender.GetComponent<CollectableItem>());   // TODO: It may crash
+            CollectableItem item = sender.GetComponent<CollectableItem>();
+            if (other.CompareTag(Constants.Collision.Tags.gem))  // TODO: Change this tag to Item
+            {
+                item = other.GetComponent<CollectableItem>();
+            }
+
+            HandlePlayerGetGem(item);
         }
 
         if ((sender.CompareTag(Constants.Collision.Tags.player) && other.CompareTag(Constants.Collision.Tags.exit))   // TODO: Improve this . Create a method that returns an Enum.
             || (sender.CompareTag(Constants.Collision.Tags.exit) && other.CompareTag(Constants.Collision.Tags.player)))
         {
-            HandlePlayerExit(sender.GetComponent<Player>());
+            Player player = sender.GetComponent<Player>();
+            if (other.CompareTag(Constants.Collision.Tags.player))
+            {
+                player = other.GetComponent<Player>();
+            }
+
+            HandlePlayerExit(player);
         }
 
         if ((sender.CompareTag(Constants.Collision.Tags.player) && other.CompareTag(Constants.Collision.Tags.enemy))   // TODO: Improve this . Create a method that returns an Enum.
             || (sender.CompareTag(Constants.Collision.Tags.enemy) && other.CompareTag(Constants.Collision.Tags.player)))
         {
-            HandlePlayerDie(sender.GetComponent<Player>());
+            Player player = sender.GetComponent<Player>();
+            if (other.CompareTag(Constants.Collision.Tags.player))
+            {
+                player = other.GetComponent<Player>();
+            }
+
+            HandlePlayerDie(player);
         }
     }
 
