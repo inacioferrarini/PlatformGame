@@ -18,7 +18,7 @@ public class Player : Character
     public AudioClip m_dieFx;
     public AudioClip m_jumpFx;
 
-    private bool CanMove
+    private bool CanMove // TODO: Find a better name
     {
         get
         {
@@ -28,7 +28,7 @@ public class Player : Character
 
     private void Update()
     {
-        m_grounded = Physics2D.OverlapCircle(m_groundCheck.position, 0.2f, m_groundLayer);
+        m_grounded = Physics2D.OverlapCircle(m_groundCheck.position, m_radiusCheck, m_groundLayer);
 
         if (Input.GetButtonDown(Constants.Input.Keys.jump) && m_grounded)
         {

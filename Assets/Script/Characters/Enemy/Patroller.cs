@@ -10,7 +10,7 @@ public class Patroller : Character
 
     private void Update()
     {
-        m_grounded = Physics2D.OverlapCircle(m_groundCheck.position, 0.2f, m_groundLayer);
+        m_grounded = Physics2D.OverlapCircle(m_groundCheck.position, m_radiusCheck, m_groundLayer);
 
         if (!m_grounded)
         {
