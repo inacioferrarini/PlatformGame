@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-static class Constants
+﻿static class Constants
 {
     public static class Input
     {

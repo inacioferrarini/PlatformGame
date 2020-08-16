@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-// TODO: Create a interface for items that play items
+// TODO: Create a interface for items that play audio
 
 /// <summary>
 /// A kind of item that can be collected during the game.

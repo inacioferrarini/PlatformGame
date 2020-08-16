@@ -1,12 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Script for a scrolling background, causing a parallax effect.
 /// </summary>
 public class ParallaxScroller : MonoBehaviour
 {
+
+    // TODO: Creates LevelData to contain this
+    // TODO: Inject Through Level
 
     // TODO: backgroundLayerList and parallaxVelocityList can become a model[] ?
 
