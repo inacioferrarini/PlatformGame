@@ -3,54 +3,20 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
-// TODO: Create a Character to handle common parameters this.
-
 /// <summary>
 /// Script user to control the player.
 /// </summary>
-public class Player : MonoBehaviour
+public class Player : Character
 {
-    /// <summary>
-    /// Movement speed.
-    /// </summary>
-    public float speed;
-
     /// <summary>
     /// Force to be applied to the rigid body upon jump.
     /// </summary>
     public int jumpForce;
 
     /// <summary>
-    /// Used to check if the player is touching the ground.
-    /// </summary>
-    public Transform groundCheck;
-
-    /// <summary>
-    /// Reference layer for the ground.
-    /// </summary>
-    public LayerMask groundLayer;
-
-    /// <summary>
-    /// Radius for ground check evaluation.
-    /// </summary>
-    public float radiusCheck;
-
-    /// <summary>
-    /// Is the player touching the ground.
-    /// </summary>
-    private bool isTouchingGround;
-
-    /// <summary>
     /// Is the player executing a jump movement?
     /// </summary>
     private bool isJumping;
-
-    /// <summary>
-    /// If the current sprite is facing right.
-    /// Makes sure that the player sprite is facing the same direction
-    /// it is moving to.
-    /// </summary>
-    private bool isFacingRight = true;
 
     /// <summary>
     /// Is the player alive?
@@ -68,31 +34,15 @@ public class Player : MonoBehaviour
     /// </summary>
     private bool timeIsOver = false;
 
-    /// <summary>
-    /// The player's physics body.
-    /// </summary>
-    private Rigidbody2D rigidBody;
-
-    /// <summary>
-    /// The animator for the player.
-    /// </summary>
-    private Animator animator;
-
     public AudioClip fxWin;
     public AudioClip fxDie;
     public AudioClip fxJump;
 
-    private void Start()
-    {
-        rigidBody = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-    }
-
     private void Update()
     {
-        isTouchingGround = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        grounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
-        if (Input.GetButtonDown(Constants.Input.Keys.jump) && isTouchingGround)
+        if (Input.GetButtonDown(Constants.Input.Keys.jump) && grounded)
         {
             isJumping = true;
             if (isAlive && !levelCompleted)
@@ -156,15 +106,15 @@ public class Player : MonoBehaviour
         {
             animator.Play(Animations.die);
         }
-        else if (isTouchingGround && rigidBody.velocity.x != 0)
+        else if (grounded && rigidBody.velocity.x != 0)
         {
             animator.Play(Animations.run);
         }
-        else if (isTouchingGround && rigidBody.velocity.x == 0)
+        else if (grounded && rigidBody.velocity.x == 0)
         {
             animator.Play(Animations.idle);
         }
-        else if (!isTouchingGround)
+        else if (!grounded)
         {
             animator.Play(Animations.jump);
         }
