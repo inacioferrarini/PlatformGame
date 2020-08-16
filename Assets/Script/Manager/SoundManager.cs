@@ -1,39 +1,45 @@
 ﻿using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager
 {
-    public static SoundManager instance;
-
-    public AudioSource fxPlayer;
-    public AudioSource fxItemmCollect;
-
-    private void Awake()
+    private static SoundManager mp_instance = null;
+    public static SoundManager instance
     {
-        // Since it will be called from the GameManager, it does not need to be singleton.
-        // TODO: Improve logic. Use singleton without using a GameObject.
-        if (instance == null)
+        get
         {
-            instance = this;
+            if (mp_instance == null)
+            {
+                mp_instance = new SoundManager();
+            }
+            return mp_instance;
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+    }
 
-        DontDestroyOnLoad(gameObject);
+    private AudioSource m_playerAudio;
+    private AudioSource m_itemAudio;
+
+    private SoundManager() { }
+
+    public void SetPlayerAudioPlayer(AudioSource p_audioPlayer)
+    {
+        m_playerAudio = p_audioPlayer;
+    }
+
+    public void SetItemAudioPlayer(AudioSource p_audioPlayer)
+    {
+        m_itemAudio = p_audioPlayer;
     }
 
     public void PlayFxPlayer(AudioClip clip)
     {
-        fxPlayer.clip = clip;
-        fxPlayer.Play();
+        m_playerAudio.clip = clip;
+        m_playerAudio.Play();
     }
 
     public void PlayFxItem(AudioClip clip)
     {
-        fxItemmCollect.clip = clip;
-        fxItemmCollect.Play();
+        m_itemAudio.clip = clip;
+        m_itemAudio.Play();
     }
-
 
 }
