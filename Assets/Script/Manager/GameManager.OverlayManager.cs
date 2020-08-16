@@ -21,11 +21,27 @@ public partial class GameManager
         /// Sets the overlay.
         /// </summary>
         /// <param name="p_gameStatus">The GameStatus to use the Overlay</param>
-        public void SetOverlay(GameStatus p_gameStatus)
+        public void SetOverlay()
         {
-            mp_gameManager.gameStatus = p_gameStatus;          // TODO: Improves this logic.
-            mp_gameManager.overlay.enabled = true;             // TODO: Improves this logic.
-            mp_gameManager.overlay.sprite = mp_gameManager.overlaySpriteList[(int)p_gameStatus]; // TODO: This should not be here. The GameManager should control the status.
+            switch (mp_gameManager.mp_gameStatus) //WIN, LOSE, DIE, PLAY
+            {
+                case GameStatus.WIN:
+                    mp_gameManager.overlay.enabled = true;
+                    mp_gameManager.overlay.sprite = mp_gameManager.overlaySpriteList[0];
+                    break;
+                case GameStatus.LOSE:
+                    mp_gameManager.overlay.enabled = true;
+                    mp_gameManager.overlay.sprite = mp_gameManager.overlaySpriteList[1];
+                    break;
+                case GameStatus.DIE:
+                    mp_gameManager.overlay.enabled = true;
+                    mp_gameManager.overlay.sprite = mp_gameManager.overlaySpriteList[2];
+                    break;
+                case GameStatus.PLAY:
+                    mp_gameManager.overlay.enabled = false;
+                    break;
+            }
+
         }
 
     }

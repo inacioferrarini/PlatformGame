@@ -10,6 +10,9 @@ public class LevelData : MonoBehaviour
         // Configures Game Manager Here
         //GameManager.instance
 
+        // #1
+        // public GameStatus gameStatus;
+        //GameManager.instance.gameStatus = play;    gameStatus
     }
 
 }

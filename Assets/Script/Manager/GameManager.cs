@@ -13,6 +13,14 @@ public partial class GameManager : MonoBehaviour
     public static GameManager instance;
 
     /// <summary>
+    /// Possible game status.
+    /// </summary>
+    public enum GameStatus
+    {
+        WIN, LOSE, DIE, PLAY
+    }
+
+    /// <summary>
     /// Overlayes used by the game.
     /// </summary>
     public Sprite[] overlaySpriteList;
@@ -36,17 +44,15 @@ public partial class GameManager : MonoBehaviour
     private int mp_score;
 
     /// <summary>
-    /// Possible game status.
-    /// </summary>
-    public enum GameStatus
-    {
-        WIN, LOSE, DIE, PLAY
-    }
-
-    /// <summary>
     /// Current status of the game.
     /// </summary>
-    public GameStatus gameStatus;
+    private GameStatus mp_gameStatus; // on update, update HUD also.
+
+
+
+
+
+
 
     private CollisionManager mp_collisionManager;
     private OverlayManager mp_overlayManager;
@@ -71,14 +77,14 @@ public partial class GameManager : MonoBehaviour
 
         mp_time = 30f; // TODO: Implement a per-level approach
         mp_score = 0;
-        gameStatus = GameStatus.PLAY;
+        mp_gameStatus = GameStatus.PLAY;
         overlay.enabled = false;
         Physics2D.IgnoreLayerCollision(Constants.Collision.Layers.player, Constants.Collision.Layers.enemy, false);
     }
 
     private void Update()
     {
-        if (gameStatus == GameStatus.PLAY)
+        if (mp_gameStatus == GameStatus.PLAY)
         {
             mp_time -= Time.deltaTime;
             int timeInt = (int)mp_time;
@@ -91,7 +97,7 @@ public partial class GameManager : MonoBehaviour
         }
         else if (Input.GetButton(Constants.Input.Keys.jump))
         {
-            if (gameStatus == GameStatus.WIN)
+            if (mp_gameStatus == GameStatus.WIN)
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // TODO: Implement a Scene name approach
             }
@@ -113,12 +119,13 @@ public partial class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Sets the overlay.
+    /// Updates the Game Status
     /// </summary>
     /// <param name="p_gameStatus">The GameStatus to use the Overlay</param>
-    public void SetOverlay(GameStatus p_gameStatus)
+    public void SetGameStatus(GameStatus p_gameStatus)
     {
-        mp_overlayManager.SetOverlay(p_gameStatus);
+        mp_gameStatus = p_gameStatus;
+        mp_overlayManager.SetOverlay();
     }
 
 }
