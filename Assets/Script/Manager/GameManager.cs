@@ -20,28 +20,15 @@ public partial class GameManager : MonoBehaviour
         WIN, LOSE, DIE, PLAY
     }
 
-    /// <summary>
-    /// Overlayes used by the game.
-    /// </summary>
-    public Sprite[] overlaySpriteList;
-
-    /// <summary>
-    /// Current overlay being displayed.
-    /// </summary>
-    public Image overlay;
-
-    /// <summary>
-    /// Time displayed on the hud.
-    /// </summary>
-    public Text timeHudText;
-
-    /// <summary>
-    /// Score displayed on the hud.
-    /// </summary>
-    public Text scoreHudText;
-
     public float mp_time;
     private int mp_score;
+
+    private LevelObjects mp_levelObjects;
+
+    public void SetLevelObjects(LevelObjects p_levelObjects)
+    {
+        mp_levelObjects = p_levelObjects;
+    }
 
     /// <summary>
     /// Current status of the game.
@@ -51,6 +38,10 @@ public partial class GameManager : MonoBehaviour
     private CollisionManager mp_collisionManager;
     private OverlayManager mp_overlayManager;
 
+    //
+    //
+    // I Will need a GameLoop
+    //
     private void Awake()
     {
         // TODO: Improve logic. Use singleton without using a GameObject.
@@ -64,6 +55,10 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
+    //
+    //
+    // I Will need a GameLoop
+    //
     private void Start()
     {
         mp_collisionManager = new CollisionManager(this);
@@ -72,10 +67,13 @@ public partial class GameManager : MonoBehaviour
         mp_time = 30f; // TODO: Implement a per-level approach
         mp_score = 0;
         mp_gameStatus = GameStatus.PLAY;
-        overlay.enabled = false;
-        Physics2D.IgnoreLayerCollision(Constants.Collision.Layers.player, Constants.Collision.Layers.enemy, false);
+        mp_levelObjects.m_overlay.enabled = false;
     }
 
+    //
+    //
+    // I Will need a GameLoop
+    //
     private void Update()
     {
         if (mp_gameStatus == GameStatus.PLAY)
@@ -85,18 +83,20 @@ public partial class GameManager : MonoBehaviour
 
             if (timeInt >= 0)
             {
-                timeHudText.text = string.Format("Time: {0}", timeInt);
-                scoreHudText.text = string.Format("Score: {0}", mp_score);
+                mp_levelObjects.m_timeHudText.text = string.Format("Time: {0}", timeInt);
+                mp_levelObjects.m_scoreHudText.text = string.Format("Score: {0}", mp_score);
             }
         }
         else if (Input.GetButton(Constants.Input.Keys.jump))
         {
             if (mp_gameStatus == GameStatus.WIN)
             {
+                Physics2D.IgnoreLayerCollision(Constants.Collision.Layers.player, Constants.Collision.Layers.enemy, false);
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // TODO: Implement a Scene name approach
             }
             else
             {
+                Physics2D.IgnoreLayerCollision(Constants.Collision.Layers.player, Constants.Collision.Layers.enemy, false);
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // TODO: Implement a Scene name approach
             }
         }

@@ -15,31 +15,24 @@ public class SoundManager
         }
     }
 
-    private AudioSource m_playerAudio;
-    private AudioSource m_itemAudio;
-
     private SoundManager() { }
+    private LevelObjects mp_levelObjects;
 
-    public void SetPlayerAudioPlayer(AudioSource p_audioPlayer)
+    public void SetLevelObjects(LevelObjects p_levelObjects)
     {
-        m_playerAudio = p_audioPlayer;
+        mp_levelObjects = p_levelObjects;
     }
 
-    public void SetItemAudioPlayer(AudioSource p_audioPlayer)
+    public void PlayFxPlayer(AudioClip p_clip)
     {
-        m_itemAudio = p_audioPlayer;
+        mp_levelObjects.m_playerAudioPlayer.clip = p_clip;
+        mp_levelObjects.m_playerAudioPlayer.Play();
     }
 
-    public void PlayFxPlayer(AudioClip clip)
+    public void PlayFxItem(AudioClip p_clip)
     {
-        m_playerAudio.clip = clip;
-        m_playerAudio.Play();
-    }
-
-    public void PlayFxItem(AudioClip clip)
-    {
-        m_itemAudio.clip = clip;
-        m_itemAudio.Play();
+        mp_levelObjects.m_itemAudioPlayer.clip = p_clip;
+        mp_levelObjects.m_itemAudioPlayer.Play();
     }
 
 }

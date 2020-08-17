@@ -26,19 +26,19 @@ public partial class GameManager
             switch (mp_gameManager.mp_gameStatus) //WIN, LOSE, DIE, PLAY
             {
                 case GameStatus.WIN:
-                    mp_gameManager.overlay.enabled = true;
-                    mp_gameManager.overlay.sprite = mp_gameManager.overlaySpriteList[0];
+                    mp_gameManager.mp_levelObjects.m_overlay.enabled = true;
+                    mp_gameManager.mp_levelObjects.m_overlay.sprite = mp_gameManager.mp_levelObjects.m_winOverlaySprite;
                     break;
                 case GameStatus.LOSE:
-                    mp_gameManager.overlay.enabled = true;
-                    mp_gameManager.overlay.sprite = mp_gameManager.overlaySpriteList[1];
+                    mp_gameManager.mp_levelObjects.m_overlay.enabled = true;
+                    mp_gameManager.mp_levelObjects.m_overlay.sprite = mp_gameManager.mp_levelObjects.m_loseOverlaySprite;
                     break;
                 case GameStatus.DIE:
-                    mp_gameManager.overlay.enabled = true;
-                    mp_gameManager.overlay.sprite = mp_gameManager.overlaySpriteList[2];
+                    mp_gameManager.mp_levelObjects.m_overlay.enabled = true;
+                    mp_gameManager.mp_levelObjects.m_overlay.sprite = mp_gameManager.mp_levelObjects.m_dieOverlaySprite;
                     break;
                 case GameStatus.PLAY:
-                    mp_gameManager.overlay.enabled = false;
+                    mp_gameManager.mp_levelObjects.m_overlay.enabled = false;
                     break;
             }
 

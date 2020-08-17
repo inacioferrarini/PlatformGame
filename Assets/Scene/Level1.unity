@@ -5099,13 +5099,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04eef8be2116a4c57a7438be8ee47aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overlaySpriteList:
-  - {fileID: 21300000, guid: a19d711ba693a4809ac7f01562ff289e, type: 3}
-  - {fileID: 21300000, guid: 3a086c649674c42058a66146d2142558, type: 3}
-  - {fileID: 21300000, guid: 3fb0d256593d8499ba72c3663532e49e, type: 3}
-  overlay: {fileID: 1212834245}
-  timeHudText: {fileID: 274180300}
-  scoreHudText: {fileID: 1462415720}
   mp_time: 0
 --- !u!4 &1547628872
 Transform:
@@ -5360,12 +5353,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_playerAudioPlayer: {fileID: 2098911639}
   m_itemAudioPlayer: {fileID: 2098911638}
-  m_firstBgLayer: {fileID: 144352815}
-  m_secondBgLayer: {fileID: 1123997207}
-  m_thirdBgLayer: {fileID: 262497279}
-  m_firstParallaxVel: 10
-  m_SecondParallaxVel: 8
-  m_ThirdParallaxVel: 3
+  m_winOverlaySprite: {fileID: 21300000, guid: a19d711ba693a4809ac7f01562ff289e, type: 3}
+  m_loseOverlaySprite: {fileID: 21300000, guid: 3a086c649674c42058a66146d2142558,
+    type: 3}
+  m_dieOverlaySprite: {fileID: 21300000, guid: 3fb0d256593d8499ba72c3663532e49e, type: 3}
+  m_overlay: {fileID: 1212834245}
+  m_timeHudText: {fileID: 274180300}
+  m_scoreHudText: {fileID: 1462415720}
 --- !u!4 &2098911637
 Transform:
   m_ObjectHideFlags: 0
