@@ -61,13 +61,13 @@ public partial class GameManager : MonoBehaviour
     //
     private void Start()
     {
-        mp_collisionManager = new CollisionManager(this);
-        mp_overlayManager = new OverlayManager(this);
+        mp_collisionManager = new CollisionManager(this);   // TODO: singleton instantiate
+        mp_overlayManager = new OverlayManager(this);       // TODO: singleton instantiate
 
-        mp_time = 30f; // TODO: Implement a per-level approach
-        mp_score = 0;
-        mp_gameStatus = GameStatus.PLAY;
-        mp_levelObjects.m_overlay.enabled = false;
+        mp_time = 30f;                               // TODO: Implement a per-level approach
+        mp_score = 0;                                // TODO: Move to LevelController
+        mp_gameStatus = GameStatus.PLAY;             // TODO: Move to LevelController
+        mp_levelObjects.m_overlay.enabled = false;   // TODO: Move to LevelController
     }
 
     //
