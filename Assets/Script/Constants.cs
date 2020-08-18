@@ -1,4 +1,4 @@
-﻿static class Constants
+﻿internal static class Constants
 {
     public static class Input
     {

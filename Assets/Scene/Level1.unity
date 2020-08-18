@@ -4647,16 +4647,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53936f469aa0f4c539438da0ca87e993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundLayerList:
+  m_backgroundLayerList:
   - {fileID: 144352815}
   - {fileID: 1123997207}
   - {fileID: 262497279}
-  parallaxVelocityList:
+  m_parallaxVelocityList:
   - 10
   - 8
   - 3
-  delay: 3
-  camera: {fileID: 808202003}
+  m_delay: 3
+  m_camera: {fileID: 808202003}
 --- !u!1001 &1358575623
 Prefab:
   m_ObjectHideFlags: 0

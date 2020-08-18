@@ -5,44 +5,28 @@
 /// </summary>
 public class ParallaxScroller : MonoBehaviour
 {
-    /// <summary>
-    /// The background layers used for parallax effect.
-    /// </summary>
-    public Transform[] backgroundLayerList;
-
-    /// <summary>
-    /// The velocity to apply to each background layer.
-    /// </summary>
-    public float[] parallaxVelocityList;
-
-    /// <summary>
-    /// How long to start applying parallax.
-    /// </summary>
-    public float delay;
-
-    /// <summary>
-    /// The parallax effect observer's reference.
-    /// </summary>
-    public new Transform camera;
-
-    private Vector3 previewCamera;
+    public Transform[] m_backgroundLayerList;
+    public float[] m_parallaxVelocityList;
+    public float m_delay;
+    public Transform m_camera;
+    private Vector3 mp_previewCamera;
 
     private void Start()
     {
-        previewCamera = camera.position;
+        mp_previewCamera = m_camera.position; // TODO: Previous Camera?
     }
 
     private void Update()
     {
-        for (int i = 0; i < backgroundLayerList.Length; i++)
+        for (int i = 0; i < m_backgroundLayerList.Length; i++)
         {
-            float parallax = (previewCamera.x - camera.position.x) * parallaxVelocityList[i];
-            float targetXPos = backgroundLayerList[i].position.x - parallax;
-            Vector3 targetPos = new Vector3(targetXPos, backgroundLayerList[i].position.y, backgroundLayerList[i].position.z);
-            backgroundLayerList[i].position = Vector3.Lerp(backgroundLayerList[i].position, targetPos, delay * Time.deltaTime);
+            float parallax = (mp_previewCamera.x - m_camera.position.x) * m_parallaxVelocityList[i];
+            float targetXPos = m_backgroundLayerList[i].position.x - parallax;
+            Vector3 targetPos = new Vector3(targetXPos, m_backgroundLayerList[i].position.y, m_backgroundLayerList[i].position.z);
+            m_backgroundLayerList[i].position = Vector3.Lerp(m_backgroundLayerList[i].position, targetPos, m_delay * Time.deltaTime);
         }
 
-        previewCamera = camera.position;
+        mp_previewCamera = m_camera.position;
     }
 
 }
