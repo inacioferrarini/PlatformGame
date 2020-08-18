@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// A Character
-/// </summary>
 public class Character : MonoBehaviour
 {
     public float m_speed;

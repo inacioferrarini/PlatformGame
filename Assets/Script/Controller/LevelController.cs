@@ -5,13 +5,13 @@ using UnityEngine;
 public class LevelController : MonoBehaviour
 {
 
-    void Start()
+    private void Start()
     {
-
+        GameManager.instance.ResetLevel(31f); // TODO: Get the time from Level Data
     }
 
-    void Update()
+    private void Update()
     {
-
+        GameManager.instance.Update();
     }
 }

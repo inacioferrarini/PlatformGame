@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// Script user to control the player.
-/// </summary>
 public class Player : Character
 {
     public int jumpForce;

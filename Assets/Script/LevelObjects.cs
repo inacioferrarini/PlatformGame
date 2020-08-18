@@ -14,10 +14,7 @@ public class LevelObjects : MonoBehaviour
 
     private void Awake()
     {
-        // Sound Manager
         SoundManager.instance.SetLevelObjects(gameObject.GetComponent<LevelObjects>());
-
-        // Game Manager
         GameManager.instance.SetLevelObjects(gameObject.GetComponent<LevelObjects>());
     }
 

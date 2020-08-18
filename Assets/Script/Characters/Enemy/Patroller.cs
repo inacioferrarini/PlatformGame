@@ -1,9 +1,5 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// Script for patroller objects.
-/// A patroller is an object that moves from one side to the other.
-/// </summary>
 public class Patroller : Character
 {
     private bool mp_isVisible = false;

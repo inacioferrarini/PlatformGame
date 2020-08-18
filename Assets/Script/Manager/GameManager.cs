@@ -1,20 +1,27 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-/// <summary>
-/// Manages the Game itself.
-/// </summary>
-public partial class GameManager : MonoBehaviour
+public partial class GameManager
 {
-    /// <summary>
-    /// Singleton access.
-    /// </summary>
-    public static GameManager instance;
+    private static GameManager mp_instance = null;
+    public static GameManager instance
+    {
+        get
+        {
+            if (mp_instance == null)
+            {
+                mp_instance = new GameManager();
+            }
+            return mp_instance;
+        }
+    }
 
-    /// <summary>
-    /// Possible game status.
-    /// </summary>
+    private GameManager()
+    {
+        mp_collisionManager = new CollisionManager(this);
+        mp_overlayManager = new OverlayManager(this);
+    }
+
     public enum GameStatus
     {
         WIN, LOSE, DIE, PLAY
@@ -30,51 +37,19 @@ public partial class GameManager : MonoBehaviour
         mp_levelObjects = p_levelObjects;
     }
 
-    /// <summary>
-    /// Current status of the game.
-    /// </summary>
     private GameStatus mp_gameStatus;
 
     private CollisionManager mp_collisionManager;
     private OverlayManager mp_overlayManager;
 
-    //
-    //
-    // I Will need a GameLoop
-    //
-    private void Awake()
+    public void ResetLevel(float p_time)
     {
-        // TODO: Improve logic. Use singleton without using a GameObject.
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        mp_time = p_time;
+        mp_score = 0;
+        SetGameStatus(GameStatus.PLAY);
     }
 
-    //
-    //
-    // I Will need a GameLoop
-    //
-    private void Start()
-    {
-        mp_collisionManager = new CollisionManager(this);   // TODO: singleton instantiate
-        mp_overlayManager = new OverlayManager(this);       // TODO: singleton instantiate
-
-        mp_time = 30f;                               // TODO: Implement a per-level approach
-        mp_score = 0;                                // TODO: Move to LevelController
-        mp_gameStatus = GameStatus.PLAY;             // TODO: Move to LevelController
-        mp_levelObjects.m_overlay.enabled = false;   // TODO: Move to LevelController
-    }
-
-    //
-    //
-    // I Will need a GameLoop
-    //
-    private void Update()
+    public void Update() // TODO: Find a Better name
     {
         if (mp_gameStatus == GameStatus.PLAY)
         {
@@ -102,20 +77,11 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Handles collisions between two gameObjects.
-    /// </summary>
-    /// <param name="object1">One gameObject</param>
-    /// <param name="object2">The Other gameObject</param>
     public void HandleCollision(GameObject object1, GameObject object2)
     {
         mp_collisionManager.HandleCollision(object1, object2);
     }
 
-    /// <summary>
-    /// Updates the Game Status
-    /// </summary>
-    /// <param name="p_gameStatus">The GameStatus to use the Overlay</param>
     public void SetGameStatus(GameStatus p_gameStatus)
     {
         mp_gameStatus = p_gameStatus;
