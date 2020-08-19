@@ -9,11 +9,12 @@ public class ParallaxScroller : MonoBehaviour
     public float[] m_parallaxVelocityList;
     public float m_delay;
     public Transform m_camera;
+
     private Vector3 mp_previewCamera;
 
     private void Start()
     {
-        mp_previewCamera = m_camera.position; // TODO: Previous Camera?
+        mp_previewCamera = m_camera.position;
     }
 
     private void Update()

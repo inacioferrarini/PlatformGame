@@ -1,51 +1,33 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Script for a camera that will follow the given `target`, respecting the defined
-/// bounds.
+/// Script for a camera that will follow the given `target`, but will not
+/// beyond the defined limits.
 /// </summary>
 public class BoundedFollowerCamera : MonoBehaviour
 {
-    /// <summary>
-    /// The current camera velocity.
-    /// </summary>
-    private Vector2 velocity;
+    public Transform m_target;
+    public Vector2 m_delay;
+    public Vector2 m_minLimit;
+    public Vector2 m_maxLimit;
 
-    /// <summary>
-    /// What the camera will follow, respecting the bounds.
-    /// </summary>
-    public Transform target;
-
-    /// <summary>
-    /// How long to start following target.
-    /// </summary>
-    public Vector2 delay;
-
-    /// <summary>
-    /// lower bound for camera limit.
-    /// </summary>
-    public Vector2 minLimit;
-
-    /// <summary>
-    /// Higher bound for camera limit.
-    /// </summary>
-    public Vector2 maxLimit;
+    private Vector2 mp_velocity;
 
     private void Start()
     {
-        transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
+        transform.position = new Vector3(m_target.position.x, m_target.position.y, transform.position.z);
     }
 
     private void Update()
     {
-        if (target != null)
+        if (m_target != null)
         {
-            float posX = Mathf.SmoothDamp(transform.position.x, target.position.x, ref velocity.x, delay.x);
-            float posY = Mathf.SmoothDamp(transform.position.y, target.position.y, ref velocity.y, delay.y);
+            float posX = Mathf.SmoothDamp(transform.position.x, m_target.position.x, ref mp_velocity.x, m_delay.x);
+            float posY = Mathf.SmoothDamp(transform.position.y, m_target.position.y, ref mp_velocity.y, m_delay.y);
 
             transform.position = new Vector3(
-                Mathf.Clamp(posX, minLimit.x, maxLimit.x),
-                Mathf.Clamp(posY, minLimit.y, maxLimit.y),
+                Mathf.Clamp(posX, m_minLimit.x, m_maxLimit.x),
+                Mathf.Clamp(posY, m_minLimit.y, m_maxLimit.y),
                 transform.position.z);
         }
     }

@@ -87,8 +87,8 @@ public partial class GameManager
 
         private void HandlePlayerGetGem(CollectableItem item)
         {
-            mp_gameManager.mp_score += item.points;
-            SoundManager.instance.PlayFxItem(item.collectFx);
+            mp_gameManager.mp_score += item.m_points;
+            SoundManager.instance.PlayFxItem(item.m_collectFx);
             Object.Destroy(item.gameObject);
         }
 

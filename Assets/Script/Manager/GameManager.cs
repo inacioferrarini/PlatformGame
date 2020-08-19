@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Manages the Game itself.
+/// </summary>
 public partial class GameManager
 {
     private static GameManager mp_instance = null;
@@ -49,7 +52,7 @@ public partial class GameManager
         SetGameStatus(GameStatus.PLAY);
     }
 
-    public void Update() // TODO: Find a Better name
+    public void Update()
     {
         if (mp_gameStatus == GameStatus.PLAY)
         {

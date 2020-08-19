@@ -15,7 +15,7 @@ public class Player : Character
     public AudioClip m_dieFx;
     public AudioClip m_jumpFx;
 
-    private bool CanMove // TODO: Find a better name
+    private bool PlayerCanMove
     {
         get
         {
@@ -30,7 +30,7 @@ public class Player : Character
         if (Input.GetButtonDown(Constants.Input.Keys.jump) && m_grounded)
         {
             mp_isJumping = true;
-            if (CanMove)
+            if (PlayerCanMove)
             {
                 SoundManager.instance.PlayFxPlayer(m_jumpFx);
             }
@@ -47,7 +47,7 @@ public class Player : Character
 
     private void FixedUpdate()
     {
-        if (CanMove)
+        if (PlayerCanMove)
         {
             float move = Input.GetAxis(Constants.Input.Axis.horizontal);
             m_rigidBody.velocity = new Vector2(move * m_speed, m_rigidBody.velocity.y);

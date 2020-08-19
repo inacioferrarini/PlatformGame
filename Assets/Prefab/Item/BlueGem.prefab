@@ -69,8 +69,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8936387d167a84e2f83e7bc9d03763ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectFx: {fileID: 8300000, guid: 322fc674ff13140958a2cefd245c99b4, type: 3}
-  points: 1
+  m_collectFx: {fileID: 8300000, guid: 322fc674ff13140958a2cefd245c99b4, type: 3}
+  m_points: 1
 --- !u!114 &114854841832383720
 MonoBehaviour:
   m_ObjectHideFlags: 1

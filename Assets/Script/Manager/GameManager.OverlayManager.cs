@@ -17,13 +17,9 @@ public partial class GameManager
             mp_gameManager = p_gameManager;
         }
 
-        /// <summary>
-        /// Sets the overlay.
-        /// </summary>
-        /// <param name="p_gameStatus">The GameStatus to use the Overlay</param>
         public void SetOverlay()
         {
-            switch (mp_gameManager.mp_gameStatus) //WIN, LOSE, DIE, PLAY
+            switch (mp_gameManager.mp_gameStatus)
             {
                 case GameStatus.WIN:
                     mp_gameManager.mp_levelObjects.m_overlay.enabled = true;
