@@ -10,6 +10,7 @@ public class CollectableItem : MonoBehaviour
 {
     public AudioClip m_collectFx;
     public int m_points;
+    public bool m_collected = false;
 
     private void OnTriggerEnter2D(Collider2D other)
     {

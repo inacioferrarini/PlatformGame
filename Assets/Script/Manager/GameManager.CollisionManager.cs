@@ -31,7 +31,11 @@ public partial class GameManager
             if (collisionMembers == CollisionMembers.PLAYER_GEM)
             {
                 CollectableItem item = SafeGetCollectableItem(object1, object2);
-                HandlePlayerGetGem(item);
+                if (!item.m_collected)
+                {
+                    item.m_collected = true;
+                    HandlePlayerGetGem(item);
+                }
             }
             else if (collisionMembers == CollisionMembers.PLAYER_EXIT)
             {
