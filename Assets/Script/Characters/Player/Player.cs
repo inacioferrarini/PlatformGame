@@ -9,6 +9,7 @@ public class Player : Character
     private bool mp_isAlive = true;
     private bool mp_levelCompleted = false;
     private bool mp_timeIsOver = false;
+    private bool mp_isRunning = false;
 
     // Player Audio
     public AudioClip m_winFx;
@@ -42,7 +43,10 @@ public class Player : Character
             PlayerDie();
         }
 
-        PlayAnimations();
+        m_animator.SetBool(AnimationVariables.isAlive, mp_isAlive);
+        m_animator.SetBool(AnimationVariables.isGrounded, m_grounded);
+        m_animator.SetBool(AnimationVariables.isLevelComplete, mp_levelCompleted);
+        m_animator.SetBool(AnimationVariables.isRunning, mp_isRunning);
     }
 
     private void FixedUpdate()
@@ -50,7 +54,9 @@ public class Player : Character
         if (PlayerCanMove)
         {
             float move = Input.GetAxis(Constants.Input.Axis.horizontal);
-            m_rigidBody.velocity = new Vector2(move * m_speed, m_rigidBody.velocity.y);
+            float velocity = move * m_speed;
+            m_rigidBody.velocity = new Vector2(velocity, m_rigidBody.velocity.y);
+            mp_isRunning = (velocity != 0);
 
             if ((move < 0 && m_isFacingRight) || (move > 0 && !m_isFacingRight))
             {
@@ -66,42 +72,7 @@ public class Player : Character
         else
         {
             m_rigidBody.velocity = new Vector2(0, m_rigidBody.velocity.y);
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-    /// <summary>
-    /// Executes the player's animation, taking into consideration the player vars.
-    /// </summary>
-    void PlayAnimations() // TODO: Migrate this to Animator
-    {
-        if (mp_levelCompleted)
-        {
-            m_animator.Play(Animations.celebrate);
-        }
-        else if (!mp_isAlive)
-        {
-            m_animator.Play(Animations.die);
-        }
-        else if (m_grounded && m_rigidBody.velocity.x != 0)
-        {
-            m_animator.Play(Animations.run);
-        }
-        else if (m_grounded && m_rigidBody.velocity.x == 0)
-        {
-            m_animator.Play(Animations.idle);
-        }
-        else if (!m_grounded)
-        {
-            m_animator.Play(Animations.jump);
+            mp_isRunning = false;
         }
     }
 
@@ -119,7 +90,6 @@ public class Player : Character
         GameManager.instance.HandleCollision(gameObject, other.gameObject);
     }
 
-
     //
     // Animations
     //
@@ -129,10 +99,6 @@ public class Player : Character
         m_isFacingRight = !m_isFacingRight;
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
-
-
-
-
 
     /// <summary>
     /// The current level was completed
@@ -174,15 +140,14 @@ public class Player : Character
     }
 
     /// <summary>
-    /// Player animations.
+    /// Player Animation Variables.
     /// </summary>
-    static class Animations
+    static class AnimationVariables
     {
-        public const string celebrate = "Celebrate";
-        public const string die = "Die";
-        public const string idle = "Idle";
-        public const string jump = "Jump";
-        public const string run = "Run";
+        public const string isRunning = "isRunning";
+        public const string isGrounded = "isGrounded";
+        public const string isLevelComplete = "isLevelComplete";
+        public const string isAlive = "isAlive";
     }
 
 }
