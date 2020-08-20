@@ -41,7 +41,7 @@ public class Player : Character
             }
         }
 
-        if (((int)GameManager.instance.mp_time <= 0) && !mp_timeIsOver) // TODO: Fix. This logic is bizarre and weird.   TODO: mp_time must be private
+        if (((int)GameManager.instance.RemainingTime() <= 0) && !mp_timeIsOver)
         {
             mp_timeIsOver = true;
             PlayerDie();
@@ -67,7 +67,7 @@ public class Player : Character
                 Flip();
             }
 
-            if (mp_isJumping)    // TODO: rename para mp_canJump or similar
+            if (mp_isJumping)
             {
                 m_rigidBody.AddForce(new Vector2(0f, jumpForce));
                 mp_isJumping = false;

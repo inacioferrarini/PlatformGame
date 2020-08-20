@@ -30,9 +30,8 @@ public partial class GameManager
         WIN, LOSE, DIE, PLAY
     }
 
-    public float mp_time;
+    private float mp_time;
     private int mp_score;
-
     private LevelObjects mp_levelObjects;
 
     public void SetLevelObjects(LevelObjects p_levelObjects)
@@ -41,10 +40,14 @@ public partial class GameManager
     }
 
     private GameStatus mp_gameStatus;
-
     private CollisionManager mp_collisionManager;
     private OverlayManager mp_overlayManager;
     private LevelManager mp_levelManager;
+
+    public float RemainingTime()
+    {
+        return mp_time;
+    }
 
     public void ResetLevel(float p_time)
     {
