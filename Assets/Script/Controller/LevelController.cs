@@ -2,10 +2,11 @@
 
 public class LevelController : MonoBehaviour
 {
+    public LevelObjects m_levelobjects;
 
     private void Start()
     {
-        GameManager.instance.ResetLevel(31f); // TODO: Get the time from Level Data
+        GameManager.instance.ResetLevel(m_levelobjects.m_timeToComplete);
     }
 
     private void Update()

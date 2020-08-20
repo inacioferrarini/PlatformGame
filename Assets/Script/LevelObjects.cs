@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class LevelObjects : MonoBehaviour
 {
+    public int m_timeToComplete;
     public AudioSource m_playerAudioPlayer;
     public AudioSource m_itemAudioPlayer;
     public Sprite m_winOverlaySprite;

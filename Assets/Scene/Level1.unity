@@ -5147,6 +5147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d94092fbaa374baea9b1b0a3a9554b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_levelobjects: {fileID: 2098911636}
 --- !u!1001 &1732494714
 Prefab:
   m_ObjectHideFlags: 0
@@ -5380,6 +5381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba95706c85994277ab8352d904a73f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_timeToComplete: 31
   m_playerAudioPlayer: {fileID: 2098911639}
   m_itemAudioPlayer: {fileID: 2098911638}
   m_winOverlaySprite: {fileID: 21300000, guid: a19d711ba693a4809ac7f01562ff289e, type: 3}
