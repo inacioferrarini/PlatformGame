@@ -12,9 +12,6 @@ public partial class GameManager
     {
         private GameManager mp_gameManager;
 
-        /// <summary>
-        /// Possible game status.
-        /// </summary>
         public enum CollisionMembers
         {
             PLAYER_GEM, PLAYER_EXIT, PLAYER_ENEMY, NONE

@@ -6,7 +6,6 @@
 /// The float movement will be defined by the `inverted` parameter.
 /// If `inverted` is true, it will float up.
 /// Else, it will float down.
-/// 
 /// </summary>
 public class FloatingItem : MonoBehaviour
 {

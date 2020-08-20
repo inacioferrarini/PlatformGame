@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Adds game loop capabilities. Is used to update game related objects during
+/// the game loop.
+/// </summary>
 public class LevelController : MonoBehaviour
 {
     public LevelObjects m_levelobjects;

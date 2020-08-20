@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Base for a character in the game.
+/// Provides basic state shared for player and enemy.
+/// </summary>
 public class Character : MonoBehaviour
 {
     public float m_speed;

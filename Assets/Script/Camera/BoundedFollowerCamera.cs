@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Script for a camera that will follow the given `target`, but will not
+/// Script for a camera that will follow the given `target`, but will not go
 /// beyond the defined limits.
 /// </summary>
 public class BoundedFollowerCamera : MonoBehaviour

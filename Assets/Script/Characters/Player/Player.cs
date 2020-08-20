@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Provides control and player behaviour.
+/// The character will move based on game input.
+/// </summary>
 public class Player : Character
 {
     public int jumpForce;

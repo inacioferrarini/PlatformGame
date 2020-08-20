@@ -1,5 +1,11 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Provides an patroller behaviour.
+///
+/// The character will move from one side to the other of the platform where it is located,
+/// avoiding it to fall from the platform.
+/// </summary>
 public class Patroller : Character
 {
     private bool mp_isVisible = false;
