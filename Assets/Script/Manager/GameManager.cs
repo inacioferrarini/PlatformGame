@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Manages the Game itself.
@@ -23,6 +22,7 @@ public partial class GameManager
     {
         mp_collisionManager = new CollisionManager(this);
         mp_overlayManager = new OverlayManager(this);
+        mp_levelManager = new LevelManager(this);
     }
 
     public enum GameStatus
@@ -44,6 +44,7 @@ public partial class GameManager
 
     private CollisionManager mp_collisionManager;
     private OverlayManager mp_overlayManager;
+    private LevelManager mp_levelManager;
 
     public void ResetLevel(float p_time)
     {
@@ -70,12 +71,12 @@ public partial class GameManager
             if (mp_gameStatus == GameStatus.WIN)
             {
                 Physics2D.IgnoreLayerCollision(Constants.Collision.Layers.player, Constants.Collision.Layers.enemy, false);
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // TODO: Implement a Scene name approach
+                mp_levelManager.LoadNextLevel();
             }
             else
             {
                 Physics2D.IgnoreLayerCollision(Constants.Collision.Layers.player, Constants.Collision.Layers.enemy, false);
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // TODO: Implement a Scene name approach
+                mp_levelManager.RestartLevel();
             }
         }
     }

@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-/// <summary>
+﻿/// <summary>
 /// Manages the Game itself.
 /// </summary>
 public partial class GameManager
