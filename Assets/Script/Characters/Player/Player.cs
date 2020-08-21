@@ -10,9 +10,14 @@ public class Player : Character
 
     // Player State
     private bool mp_isJumping = false;
+    public bool IsJumping
+    {
+        get { return mp_isJumping; }
+        set { mp_isJumping = value; }
+    }
+
     private bool mp_isAlive = true;
     private bool mp_levelCompleted = false;
-    private bool mp_timeIsOver = false;
     private bool mp_isRunning = false;
 
     // Player Audio
@@ -20,33 +25,20 @@ public class Player : Character
     public AudioClip m_dieFx;
     public AudioClip m_jumpFx;
 
-    private bool PlayerCanMove
+    public bool PlayerCanMove { get { return mp_isAlive && !mp_levelCompleted; } }
+
+    private void Awake()
     {
-        get
-        {
-            return mp_isAlive && !mp_levelCompleted;
-        }
+        GameManager.instance.SetPlayer(gameObject.GetComponent<Player>());
     }
 
     private void Update()
     {
         m_grounded = Physics2D.OverlapCircle(m_groundCheck.position, m_radiusCheck, m_groundLayer);
+    }
 
-        if (Input.GetButtonDown(Constants.Input.Keys.jump) && m_grounded)
-        {
-            mp_isJumping = true;
-            if (PlayerCanMove)
-            {
-                SoundManager.instance.PlayFxPlayer(m_jumpFx);
-            }
-        }
-
-        if (((int)GameManager.instance.RemainingTime() <= 0) && !mp_timeIsOver)
-        {
-            mp_timeIsOver = true;
-            PlayerDie();
-        }
-
+    public void UpdateAnimatorVariables()
+    {
         m_animator.SetBool(AnimationVariables.isAlive, mp_isAlive);
         m_animator.SetBool(AnimationVariables.isGrounded, m_grounded);
         m_animator.SetBool(AnimationVariables.isLevelComplete, mp_levelCompleted);
@@ -125,7 +117,7 @@ public class Player : Character
     /// </summary>
     void DieAnimationFinished()
     {
-        if (mp_timeIsOver)
+        if (GameManager.instance.IsTimeOver)
         {
             GameManager.instance.SetGameStatus(GameManager.GameStatus.LOSE);
         }

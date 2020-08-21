@@ -23,6 +23,7 @@ public partial class GameManager
         mp_collisionManager = new CollisionManager(this);
         mp_overlayManager = new OverlayManager(this);
         mp_levelManager = new LevelManager(this);
+        mp_inputManager = new InputManager(this);
     }
 
     public enum GameStatus
@@ -32,17 +33,25 @@ public partial class GameManager
 
     private float mp_time;
     private int mp_score;
-    private LevelObjects mp_levelObjects;
+    public bool IsTimeOver { get; set; }
 
+    private LevelObjects mp_levelObjects;
     public void SetLevelObjects(LevelObjects p_levelObjects)
     {
         mp_levelObjects = p_levelObjects;
+    }
+
+    private Player mp_player;
+    public void SetPlayer(Player p_player)
+    {
+        mp_player = p_player;
     }
 
     private GameStatus mp_gameStatus;
     private CollisionManager mp_collisionManager;
     private OverlayManager mp_overlayManager;
     private LevelManager mp_levelManager;
+    private InputManager mp_inputManager;
 
     public float RemainingTime()
     {
@@ -51,6 +60,7 @@ public partial class GameManager
 
     public void ResetLevel(float p_time)
     {
+        IsTimeOver = false;
         mp_time = p_time;
         mp_score = 0;
         SetGameStatus(GameStatus.PLAY);
@@ -58,6 +68,8 @@ public partial class GameManager
 
     public void Update()
     {
+        mp_inputManager.HandleUserInput();
+
         if (mp_gameStatus == GameStatus.PLAY)
         {
             mp_time -= Time.deltaTime;
