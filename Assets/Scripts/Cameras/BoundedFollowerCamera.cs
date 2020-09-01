@@ -6,28 +6,28 @@
 /// </summary>
 public class BoundedFollowerCamera : MonoBehaviour
 {
-    public Transform m_target;
-    public Vector2 m_delay;
-    public Vector2 m_minLimit;
-    public Vector2 m_maxLimit;
+    public Transform target;
+    public Vector2 delay;
+    public Vector2 minLimit;
+    public Vector2 maxLimit;
 
-    private Vector2 mp_velocity;
+    private Vector2 velocity;
 
     private void Start()
     {
-        transform.position = new Vector3(m_target.position.x, m_target.position.y, transform.position.z);
+        transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
     }
 
     private void Update()
     {
-        if (m_target != null)
+        if (target != null)
         {
-            float posX = Mathf.SmoothDamp(transform.position.x, m_target.position.x, ref mp_velocity.x, m_delay.x);
-            float posY = Mathf.SmoothDamp(transform.position.y, m_target.position.y, ref mp_velocity.y, m_delay.y);
+            float posX = Mathf.SmoothDamp(transform.position.x, target.position.x, ref velocity.x, delay.x);
+            float posY = Mathf.SmoothDamp(transform.position.y, target.position.y, ref velocity.y, delay.y);
 
             transform.position = new Vector3(
-                Mathf.Clamp(posX, m_minLimit.x, m_maxLimit.x),
-                Mathf.Clamp(posY, m_minLimit.y, m_maxLimit.y),
+                Mathf.Clamp(posX, minLimit.x, maxLimit.x),
+                Mathf.Clamp(posY, minLimit.y, maxLimit.y),
                 transform.position.z);
         }
     }
