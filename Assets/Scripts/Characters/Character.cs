@@ -15,7 +15,7 @@ public class Character : MonoBehaviour
     protected Rigidbody2D m_rigidBody;
     protected Animator m_animator;
 
-    public bool IsGrounded { get { return m_grounded; } }
+    //public bool IsGrounded { get { return m_grounded; } }
 
     protected void Start()
     {

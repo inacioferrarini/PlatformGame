@@ -68,7 +68,13 @@ public partial class GameManager
 
     public void Update()
     {
-        mp_inputManager.HandleUserInput();
+        //mp_inputManager.HandleUserInput();
+
+        if (((int)GameManager.instance.RemainingTime() <= 0) && !IsTimeOver)
+        {
+            IsTimeOver = true;
+            mp_player.PlayerDie();
+        }
 
         if (mp_gameStatus == GameStatus.PLAY)
         {

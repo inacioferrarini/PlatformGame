@@ -25,7 +25,7 @@ public class Player : Character
     public AudioClip m_dieFx;
     public AudioClip m_jumpFx;
 
-    public bool PlayerCanMove { get { return mp_isAlive && !mp_levelCompleted; } }
+    private bool PlayerCanMove { get { return mp_isAlive && !mp_levelCompleted; } }
 
     private void Awake()
     {
@@ -35,19 +35,24 @@ public class Player : Character
     private void Update()
     {
         m_grounded = Physics2D.OverlapCircle(m_groundCheck.position, m_radiusCheck, m_groundLayer);
-    }
-
-    public void UpdateAnimatorVariables()
-    {
         m_animator.SetBool(AnimationVariables.isAlive, mp_isAlive);
         m_animator.SetBool(AnimationVariables.isGrounded, m_grounded);
         m_animator.SetBool(AnimationVariables.isLevelComplete, mp_levelCompleted);
         m_animator.SetBool(AnimationVariables.isRunning, mp_isRunning);
+
+        if (Input.GetButtonDown(Constants.Input.Keys.jump) && m_grounded)
+        {
+            IsJumping = true;
+            if (PlayerCanMove)   // TODO: Decision - pass to GameManager
+            {
+                SoundManager.instance.PlayFxPlayer(m_jumpFx);  // TODO: Create a Wrapper variable?
+            }
+        }
     }
 
     private void FixedUpdate()
     {
-        if (PlayerCanMove)
+        if (PlayerCanMove)        // TODO: Decision - pass to GameManager
         {
             float move = Input.GetAxis(Constants.Input.Axis.horizontal);
             float velocity = move * m_speed;
