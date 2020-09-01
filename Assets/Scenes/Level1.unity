@@ -3872,6 +3872,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &714054706 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7210974107438508269, guid: 7a2c9d1bccb9d45e0b492af13d673ac8,
+    type: 3}
+  m_PrefabInstance: {fileID: 7210974107313360578}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &776802995
 GameObject:
   m_ObjectHideFlags: 0
@@ -4455,6 +4461,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1358575623}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &2041098795 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7210974106190944469, guid: 7a2c9d1bccb9d45e0b492af13d673ac8,
+    type: 3}
+  m_PrefabInstance: {fileID: 7210974107313360578}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2098911635
 GameObject:
   m_ObjectHideFlags: 0
@@ -4799,6 +4811,12 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!4 &2127700557 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7210974107353394493, guid: 7a2c9d1bccb9d45e0b492af13d673ac8,
+    type: 3}
+  m_PrefabInstance: {fileID: 7210974107313360578}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2132967307
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4849,7 +4867,57 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7210974106269179076, guid: 7a2c9d1bccb9d45e0b492af13d673ac8,
         type: 3}
+      propertyPath: backgroundLayerList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210974106269179076, guid: 7a2c9d1bccb9d45e0b492af13d673ac8,
+        type: 3}
+      propertyPath: parallaxVelocityList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210974106269179076, guid: 7a2c9d1bccb9d45e0b492af13d673ac8,
+        type: 3}
       propertyPath: m_camera
+      value: 
+      objectReference: {fileID: 808202003}
+    - target: {fileID: 7210974106269179076, guid: 7a2c9d1bccb9d45e0b492af13d673ac8,
+        type: 3}
+      propertyPath: backgroundLayerList.Array.data[0]
+      value: 
+      objectReference: {fileID: 714054706}
+    - target: {fileID: 7210974106269179076, guid: 7a2c9d1bccb9d45e0b492af13d673ac8,
+        type: 3}
+      propertyPath: backgroundLayerList.Array.data[1]
+      value: 
+      objectReference: {fileID: 2041098795}
+    - target: {fileID: 7210974106269179076, guid: 7a2c9d1bccb9d45e0b492af13d673ac8,
+        type: 3}
+      propertyPath: backgroundLayerList.Array.data[2]
+      value: 
+      objectReference: {fileID: 2127700557}
+    - target: {fileID: 7210974106269179076, guid: 7a2c9d1bccb9d45e0b492af13d673ac8,
+        type: 3}
+      propertyPath: parallaxVelocityList.Array.data[0]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210974106269179076, guid: 7a2c9d1bccb9d45e0b492af13d673ac8,
+        type: 3}
+      propertyPath: parallaxVelocityList.Array.data[1]
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210974106269179076, guid: 7a2c9d1bccb9d45e0b492af13d673ac8,
+        type: 3}
+      propertyPath: parallaxVelocityList.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210974106269179076, guid: 7a2c9d1bccb9d45e0b492af13d673ac8,
+        type: 3}
+      propertyPath: delay
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7210974106269179076, guid: 7a2c9d1bccb9d45e0b492af13d673ac8,
+        type: 3}
+      propertyPath: camera
       value: 
       objectReference: {fileID: 808202003}
     - target: {fileID: 7210974106269179078, guid: 7a2c9d1bccb9d45e0b492af13d673ac8,
