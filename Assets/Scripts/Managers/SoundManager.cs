@@ -2,37 +2,37 @@
 
 public class SoundManager
 {
-    private static SoundManager mp_instance = null;
-    public static SoundManager instance
+    private static SoundManager instance = null;
+    public static SoundManager Instance
     {
         get
         {
-            if (mp_instance == null)
+            if (instance == null)
             {
-                mp_instance = new SoundManager();
+                instance = new SoundManager();
             }
-            return mp_instance;
+            return instance;
         }
     }
 
     private SoundManager() { }
-    private LevelObjects mp_levelObjects;
+    private LevelObjects levelObjects;
 
-    public void SetLevelObjects(LevelObjects p_levelObjects)
+    public void SetLevelObjects(LevelObjects levelObjects)
     {
-        mp_levelObjects = p_levelObjects;
+        this.levelObjects = levelObjects;
     }
 
-    public void PlayFxPlayer(AudioClip p_clip)
+    public void PlayFxPlayer(AudioClip clip)
     {
-        mp_levelObjects.m_playerAudioPlayer.clip = p_clip;
-        mp_levelObjects.m_playerAudioPlayer.Play();
+        levelObjects.playerAudioPlayer.clip = clip;
+        levelObjects.playerAudioPlayer.Play();
     }
 
-    public void PlayFxItem(AudioClip p_clip)
+    public void PlayFxItem(AudioClip clip)
     {
-        mp_levelObjects.m_itemAudioPlayer.clip = p_clip;
-        mp_levelObjects.m_itemAudioPlayer.Play();
+        levelObjects.itemAudioPlayer.clip = clip;
+        levelObjects.itemAudioPlayer.Play();
     }
 
 }

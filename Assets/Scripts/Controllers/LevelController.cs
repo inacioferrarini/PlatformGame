@@ -6,15 +6,15 @@
 /// </summary>
 public class LevelController : MonoBehaviour
 {
-    public LevelObjects m_levelobjects;
+    public LevelObjects levelobjects;
 
     private void Start()
     {
-        GameManager.instance.ResetLevel(m_levelobjects.m_timeToComplete);
+        GameManager.Instance.ResetLevel(levelobjects.timeToComplete);
     }
 
     private void Update()
     {
-        GameManager.instance.Update();
+        GameManager.Instance.Update();
     }
 }

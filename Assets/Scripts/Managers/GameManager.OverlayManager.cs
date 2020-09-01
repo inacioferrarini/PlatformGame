@@ -8,31 +8,31 @@ public partial class GameManager
     /// </summary>
     class OverlayManager
     {
-        private GameManager mp_gameManager;
+        private GameManager gameManager;
 
-        public OverlayManager(GameManager p_gameManager)
+        public OverlayManager(GameManager gameManager)
         {
-            mp_gameManager = p_gameManager;
+            this.gameManager = gameManager;
         }
 
         public void SetOverlay()
         {
-            switch (mp_gameManager.mp_gameStatus)
+            switch (gameManager.gameStatus)
             {
                 case GameStatus.WIN:
-                    mp_gameManager.mp_levelObjects.m_overlay.enabled = true;
-                    mp_gameManager.mp_levelObjects.m_overlay.sprite = mp_gameManager.mp_levelObjects.m_winOverlaySprite;
+                    gameManager.levelObjects.overlay.enabled = true;
+                    gameManager.levelObjects.overlay.sprite = gameManager.levelObjects.winOverlaySprite;
                     break;
                 case GameStatus.LOSE:
-                    mp_gameManager.mp_levelObjects.m_overlay.enabled = true;
-                    mp_gameManager.mp_levelObjects.m_overlay.sprite = mp_gameManager.mp_levelObjects.m_loseOverlaySprite;
+                    gameManager.levelObjects.overlay.enabled = true;
+                    gameManager.levelObjects.overlay.sprite = gameManager.levelObjects.loseOverlaySprite;
                     break;
                 case GameStatus.DIE:
-                    mp_gameManager.mp_levelObjects.m_overlay.enabled = true;
-                    mp_gameManager.mp_levelObjects.m_overlay.sprite = mp_gameManager.mp_levelObjects.m_dieOverlaySprite;
+                    gameManager.levelObjects.overlay.enabled = true;
+                    gameManager.levelObjects.overlay.sprite = gameManager.levelObjects.dieOverlaySprite;
                     break;
                 case GameStatus.PLAY:
-                    mp_gameManager.mp_levelObjects.m_overlay.enabled = false;
+                    gameManager.levelObjects.overlay.enabled = false;
                     break;
             }
 

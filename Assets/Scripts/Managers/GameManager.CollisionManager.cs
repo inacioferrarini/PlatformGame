@@ -10,16 +10,16 @@ public partial class GameManager
     /// </summary>
     class CollisionManager
     {
-        private GameManager mp_gameManager;
+        private GameManager gameManager;
 
         public enum CollisionMembers
         {
             PLAYER_GEM, PLAYER_EXIT, PLAYER_ENEMY, NONE
         }
 
-        public CollisionManager(GameManager p_gameManager)
+        public CollisionManager(GameManager gameManager)
         {
-            mp_gameManager = p_gameManager;
+            this.gameManager = gameManager;
         }
 
         public void HandleCollision(GameObject object1, GameObject object2)
@@ -28,9 +28,9 @@ public partial class GameManager
             if (collisionMembers == CollisionMembers.PLAYER_GEM)
             {
                 CollectableItem item = SafeGetCollectableItem(object1, object2);
-                if (!item.m_collected)
+                if (!item.collected)
                 {
-                    item.m_collected = true;
+                    item.collected = true;
                     HandlePlayerGetGem(item);
                 }
             }
@@ -88,22 +88,22 @@ public partial class GameManager
 
         private void HandlePlayerGetGem(CollectableItem item)
         {
-            mp_gameManager.mp_score += item.m_points;
-            SoundManager.instance.PlayFxItem(item.m_collectFx);
+            gameManager.score += item.points;
+            SoundManager.Instance.PlayFxItem(item.collectFx);
             Object.Destroy(item.gameObject);
         }
 
         private void HandlePlayerExit(Player player)
         {
             player.LevelCompleted();
-            SoundManager.instance.PlayFxItem(player.m_winFx);
+            SoundManager.Instance.PlayFxItem(player.winFx);
         }
 
         private void HandlePlayerDie(Player player)
         {
             player.PlayerDie();
             Physics2D.IgnoreLayerCollision(Constants.Collision.Layers.player, Constants.Collision.Layers.enemy);
-            SoundManager.instance.PlayFxPlayer(player.m_dieFx);
+            SoundManager.Instance.PlayFxPlayer(player.dieFx);
         }
 
     }

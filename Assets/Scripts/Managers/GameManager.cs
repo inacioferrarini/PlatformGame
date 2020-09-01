@@ -5,25 +5,24 @@
 /// </summary>
 public partial class GameManager
 {
-    private static GameManager mp_instance = null;
-    public static GameManager instance
+    private static GameManager instance = null;
+    public static GameManager Instance
     {
         get
         {
-            if (mp_instance == null)
+            if (instance == null)
             {
-                mp_instance = new GameManager();
+                instance = new GameManager();
             }
-            return mp_instance;
+            return instance;
         }
     }
 
     private GameManager()
     {
-        mp_collisionManager = new CollisionManager(this);
-        mp_overlayManager = new OverlayManager(this);
-        mp_levelManager = new LevelManager(this);
-        mp_inputManager = new InputManager(this);
+        collisionManager = new CollisionManager(this);
+        overlayManager = new OverlayManager(this);
+        levelManager = new LevelManager(this);
     }
 
     public enum GameStatus
@@ -31,86 +30,83 @@ public partial class GameManager
         WIN, LOSE, DIE, PLAY
     }
 
-    private float mp_time;
-    private int mp_score;
+    private float time;
+    private int score;
     public bool IsTimeOver { get; set; }
 
-    private LevelObjects mp_levelObjects;
-    public void SetLevelObjects(LevelObjects p_levelObjects)
+    private LevelObjects levelObjects;
+    public void SetLevelObjects(LevelObjects levelObjects)
     {
-        mp_levelObjects = p_levelObjects;
+        this.levelObjects = levelObjects;
     }
 
-    private Player mp_player;
-    public void SetPlayer(Player p_player)
+    private Player player;
+    public void SetPlayer(Player player)
     {
-        mp_player = p_player;
+        this.player = player;
     }
 
-    private GameStatus mp_gameStatus;
-    private CollisionManager mp_collisionManager;
-    private OverlayManager mp_overlayManager;
-    private LevelManager mp_levelManager;
-    private InputManager mp_inputManager;
+    private GameStatus gameStatus;
+    private CollisionManager collisionManager;
+    private OverlayManager overlayManager;
+    private LevelManager levelManager;
 
     public float RemainingTime()
     {
-        return mp_time;
+        return time;
     }
 
-    public void ResetLevel(float p_time)
+    public void ResetLevel(float time)
     {
         IsTimeOver = false;
-        mp_time = p_time;
-        mp_score = 0;
+        this.time = time;
+        score = 0;
         SetGameStatus(GameStatus.PLAY);
     }
 
     public void Update()
     {
-        //mp_inputManager.HandleUserInput();
-
         if (((int)GameManager.instance.RemainingTime() <= 0) && !IsTimeOver)
         {
             IsTimeOver = true;
-            mp_player.PlayerDie();
+            player.PlayerDie();
         }
 
-        if (mp_gameStatus == GameStatus.PLAY)
+        if (gameStatus == GameStatus.PLAY)
         {
-            mp_time -= Time.deltaTime;
-            int timeInt = (int)mp_time;
+            time -= Time.deltaTime;
+            int timeInt = (int)time;
 
             if (timeInt >= 0)
             {
-                mp_levelObjects.m_timeHudText.text = string.Format("Time: {0}", timeInt);
-                mp_levelObjects.m_scoreHudText.text = string.Format("Score: {0}", mp_score);
+                levelObjects.timeHudText.text = string.Format("Time: {0}", timeInt);
+                levelObjects.scoreHudText.text = string.Format("Score: {0}", score);
             }
         }
         else if (Input.GetButton(Constants.Input.Keys.jump))
         {
-            if (mp_gameStatus == GameStatus.WIN)
+            if (gameStatus == GameStatus.WIN)
             {
                 Physics2D.IgnoreLayerCollision(Constants.Collision.Layers.player, Constants.Collision.Layers.enemy, false);
-                mp_levelManager.LoadNextLevel();
+                levelManager.LoadNextLevel();
             }
             else
             {
                 Physics2D.IgnoreLayerCollision(Constants.Collision.Layers.player, Constants.Collision.Layers.enemy, false);
-                mp_levelManager.RestartLevel();
+                levelManager.RestartLevel();
             }
         }
     }
 
     public void HandleCollision(GameObject object1, GameObject object2)
     {
-        mp_collisionManager.HandleCollision(object1, object2);
+        collisionManager.HandleCollision(object1, object2);
     }
 
     public void SetGameStatus(GameStatus p_gameStatus)
     {
-        mp_gameStatus = p_gameStatus;
-        mp_overlayManager.SetOverlay();
+        gameStatus = p_gameStatus;
+        overlayManager.SetOverlay();
     }
 
 }

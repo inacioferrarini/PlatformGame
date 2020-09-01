@@ -9,43 +9,37 @@ public class Player : Character
     public int jumpForce;
 
     // Player State
-    private bool mp_isJumping = false;
-    public bool IsJumping
-    {
-        get { return mp_isJumping; }
-        set { mp_isJumping = value; }
-    }
-
-    private bool mp_isAlive = true;
-    private bool mp_levelCompleted = false;
-    private bool mp_isRunning = false;
+    private bool isJumping = false;
+    private bool isAlive = true;
+    private bool levelCompleted = false;
+    private bool isRunning = false;
 
     // Player Audio
-    public AudioClip m_winFx;
-    public AudioClip m_dieFx;
-    public AudioClip m_jumpFx;
+    public AudioClip winFx;
+    public AudioClip dieFx;
+    public AudioClip jumpFx;
 
-    private bool PlayerCanMove { get { return mp_isAlive && !mp_levelCompleted; } }
+    private bool PlayerCanMove { get { return isAlive && !levelCompleted; } }
 
     private void Awake()
     {
-        GameManager.instance.SetPlayer(gameObject.GetComponent<Player>());
+        GameManager.Instance.SetPlayer(gameObject.GetComponent<Player>());
     }
 
     private void Update()
     {
-        m_grounded = Physics2D.OverlapCircle(m_groundCheck.position, m_radiusCheck, m_groundLayer);
-        m_animator.SetBool(AnimationVariables.isAlive, mp_isAlive);
-        m_animator.SetBool(AnimationVariables.isGrounded, m_grounded);
-        m_animator.SetBool(AnimationVariables.isLevelComplete, mp_levelCompleted);
-        m_animator.SetBool(AnimationVariables.isRunning, mp_isRunning);
+        grounded = Physics2D.OverlapCircle(groundCheck.position, radiusCheck, groundLayer);
+        animator.SetBool(AnimationVariables.isAlive, isAlive);
+        animator.SetBool(AnimationVariables.isGrounded, grounded);
+        animator.SetBool(AnimationVariables.isLevelComplete, levelCompleted);
+        animator.SetBool(AnimationVariables.isRunning, isRunning);
 
-        if (Input.GetButtonDown(Constants.Input.Keys.jump) && m_grounded)
+        if (Input.GetButtonDown(Constants.Input.Keys.jump) && grounded)
         {
-            IsJumping = true;
+            isJumping = true;
             if (PlayerCanMove)   // TODO: Decision - pass to GameManager
             {
-                SoundManager.instance.PlayFxPlayer(m_jumpFx);  // TODO: Create a Wrapper variable?
+                SoundManager.Instance.PlayFxPlayer(jumpFx);  // TODO: Create a Wrapper variable?
             }
         }
     }
@@ -55,25 +49,25 @@ public class Player : Character
         if (PlayerCanMove)        // TODO: Decision - pass to GameManager
         {
             float move = Input.GetAxis(Constants.Input.Axis.horizontal);
-            float velocity = move * m_speed;
-            m_rigidBody.velocity = new Vector2(velocity, m_rigidBody.velocity.y);
-            mp_isRunning = (velocity != 0);
+            float velocity = move * speed;
+            rigidBody.velocity = new Vector2(velocity, rigidBody.velocity.y);
+            isRunning = (velocity != 0);
 
-            if ((move < 0 && m_isFacingRight) || (move > 0 && !m_isFacingRight))
+            if ((move < 0 && isFacingRight) || (move > 0 && !isFacingRight))
             {
                 Flip();
             }
 
-            if (mp_isJumping)
+            if (isJumping)
             {
-                m_rigidBody.AddForce(new Vector2(0f, jumpForce));
-                mp_isJumping = false;
+                rigidBody.AddForce(new Vector2(0f, jumpForce));
+                isJumping = false;
             }
         }
         else
         {
-            m_rigidBody.velocity = new Vector2(0, m_rigidBody.velocity.y);
-            mp_isRunning = false;
+            rigidBody.velocity = new Vector2(0, rigidBody.velocity.y);
+            isRunning = false;
         }
     }
 
@@ -83,12 +77,12 @@ public class Player : Character
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        GameManager.instance.HandleCollision(gameObject, other.gameObject);
+        GameManager.Instance.HandleCollision(gameObject, other.gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        GameManager.instance.HandleCollision(gameObject, other.gameObject);
+        GameManager.Instance.HandleCollision(gameObject, other.gameObject);
     }
 
     //
@@ -97,7 +91,7 @@ public class Player : Character
 
     private void Flip()
     {
-        m_isFacingRight = !m_isFacingRight;
+        isFacingRight = !isFacingRight;
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
 
@@ -106,7 +100,7 @@ public class Player : Character
     /// </summary>
     public void LevelCompleted()
     {
-        mp_levelCompleted = true;
+        levelCompleted = true;
     }
 
     /// <summary>
@@ -114,7 +108,7 @@ public class Player : Character
     /// </summary>
     public void PlayerDie()
     {
-        mp_isAlive = false;
+        isAlive = false;
     }
 
     /// <summary>
@@ -122,13 +116,13 @@ public class Player : Character
     /// </summary>
     void DieAnimationFinished()
     {
-        if (GameManager.instance.IsTimeOver)
+        if (GameManager.Instance.IsTimeOver)
         {
-            GameManager.instance.SetGameStatus(GameManager.GameStatus.LOSE);
+            GameManager.Instance.SetGameStatus(GameManager.GameStatus.LOSE);
         }
         else
         {
-            GameManager.instance.SetGameStatus(GameManager.GameStatus.DIE);
+            GameManager.Instance.SetGameStatus(GameManager.GameStatus.DIE);
         }
     }
 
@@ -137,7 +131,7 @@ public class Player : Character
     /// </summary>
     void CelebrationAnimationFinished()
     {
-        GameManager.instance.SetGameStatus(GameManager.GameStatus.WIN);
+        GameManager.Instance.SetGameStatus(GameManager.GameStatus.WIN);
     }
 
     /// <summary>

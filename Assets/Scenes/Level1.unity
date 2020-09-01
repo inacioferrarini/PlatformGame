@@ -4013,13 +4013,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7451cd08881244cff848b83beaf9d84a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_target: {fileID: 129337664}
   target: {fileID: 129337664}
-  m_delay: {x: 0.2, y: 0.2}
   delay: {x: 0.2, y: 0.2}
-  m_minLimit: {x: 0, y: 0}
   minLimit: {x: 0, y: 0}
-  m_maxLimit: {x: 43.1, y: 2.9}
   maxLimit: {x: 43.1, y: 2.9}
 --- !u!1 &1034131208
 GameObject:
@@ -4406,6 +4402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_levelobjects: {fileID: 2098911636}
+  levelobjects: {fileID: 2098911636}
 --- !u!1001 &1732494714
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4503,16 +4500,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba95706c85994277ab8352d904a73f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_timeToComplete: 31
-  m_playerAudioPlayer: {fileID: 2098911639}
-  m_itemAudioPlayer: {fileID: 2098911638}
-  m_winOverlaySprite: {fileID: 21300000, guid: a19d711ba693a4809ac7f01562ff289e, type: 3}
-  m_loseOverlaySprite: {fileID: 21300000, guid: 3a086c649674c42058a66146d2142558,
-    type: 3}
-  m_dieOverlaySprite: {fileID: 21300000, guid: 3fb0d256593d8499ba72c3663532e49e, type: 3}
-  m_overlay: {fileID: 1212834245}
-  m_timeHudText: {fileID: 274180300}
-  m_scoreHudText: {fileID: 1462415720}
+  timeToComplete: 31
+  playerAudioPlayer: {fileID: 2098911639}
+  itemAudioPlayer: {fileID: 2098911638}
+  winOverlaySprite: {fileID: 21300000, guid: a19d711ba693a4809ac7f01562ff289e, type: 3}
+  loseOverlaySprite: {fileID: 21300000, guid: 3a086c649674c42058a66146d2142558, type: 3}
+  dieOverlaySprite: {fileID: 21300000, guid: 3fb0d256593d8499ba72c3663532e49e, type: 3}
+  overlay: {fileID: 1212834245}
+  timeHudText: {fileID: 274180300}
+  scoreHudText: {fileID: 1462415720}
 --- !u!4 &2098911637
 Transform:
   m_ObjectHideFlags: 0

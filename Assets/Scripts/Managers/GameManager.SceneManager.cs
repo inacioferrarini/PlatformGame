@@ -18,26 +18,26 @@ public partial class GameManager
             COUNT = 3
         }
 
-        private GameManager mp_gameManager;
-        private Level mp_currentLevel = Level.LEVEL_1;
+        private GameManager gameManager;
+        private Level currentLevel = Level.LEVEL_1;
 
-        public LevelManager(GameManager p_gameManager)
+        public LevelManager(GameManager gameManager)
         {
-            mp_gameManager = p_gameManager;
+            this.gameManager = gameManager;
         }
 
         public void RestartLevel()
         {
-            SceneManager.LoadScene((int)mp_currentLevel, LoadSceneMode.Single);
+            SceneManager.LoadScene((int)currentLevel, LoadSceneMode.Single);
         }
 
         public void LoadNextLevel()
         {
-            Level? optionalNextLevel = NextLevel(mp_currentLevel);
+            Level? optionalNextLevel = NextLevel(currentLevel);
             if (optionalNextLevel != null)
             {
                 Level nextLevel = (Level)optionalNextLevel;
-                mp_currentLevel = nextLevel;
+                currentLevel = nextLevel;
                 SceneManager.LoadScene((int)nextLevel);
             }
         }

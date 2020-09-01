@@ -8,13 +8,13 @@
 /// </summary>
 public class Patroller : Character
 {
-    private bool mp_isVisible = false;
+    private bool isVisible = false;
 
     private void Update()
     {
-        m_grounded = Physics2D.OverlapCircle(m_groundCheck.position, m_radiusCheck, m_groundLayer);
+        grounded = Physics2D.OverlapCircle(groundCheck.position, radiusCheck, groundLayer);
 
-        if (!m_grounded)
+        if (!grounded)
         {
             Flip();
         }
@@ -22,21 +22,21 @@ public class Patroller : Character
 
     private void FixedUpdate()
     {
-        if (mp_isVisible)
+        if (isVisible)
         {
-            m_rigidBody.velocity = new Vector2(m_speed, m_rigidBody.velocity.y);
+            rigidBody.velocity = new Vector2(speed, rigidBody.velocity.y);
         }
         else
         {
-            m_rigidBody.velocity = new Vector2(0f, m_rigidBody.velocity.y);
+            rigidBody.velocity = new Vector2(0f, rigidBody.velocity.y);
         }
     }
 
     void Flip()
     {
-        m_isFacingRight = !m_isFacingRight;
+        isFacingRight = !isFacingRight;
         transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-        m_speed *= -1;
+        speed *= -1;
     }
 
     void OnBecameVisible()
@@ -51,14 +51,14 @@ public class Patroller : Character
 
     void MoveEnemy()
     {
-        mp_isVisible = true;
-        m_animator.SetBool(AnimationVariables.isRunning, true);
+        isVisible = true;
+        animator.SetBool(AnimationVariables.isRunning, true);
     }
 
     void StopEnemy()
     {
-        mp_isVisible = false;
-        m_animator.SetBool(AnimationVariables.isRunning, false);
+        isVisible = false;
+        animator.SetBool(AnimationVariables.isRunning, false);
     }
 
     static class AnimationVariables

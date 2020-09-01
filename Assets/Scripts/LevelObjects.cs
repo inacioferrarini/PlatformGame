@@ -3,20 +3,20 @@ using UnityEngine.UI;
 
 public class LevelObjects : MonoBehaviour
 {
-    public int m_timeToComplete;
-    public AudioSource m_playerAudioPlayer;
-    public AudioSource m_itemAudioPlayer;
-    public Sprite m_winOverlaySprite;
-    public Sprite m_loseOverlaySprite;
-    public Sprite m_dieOverlaySprite;
-    public Image m_overlay;
-    public Text m_timeHudText;
-    public Text m_scoreHudText;
+    public int timeToComplete;
+    public AudioSource playerAudioPlayer;
+    public AudioSource itemAudioPlayer;
+    public Sprite winOverlaySprite;
+    public Sprite loseOverlaySprite;
+    public Sprite dieOverlaySprite;
+    public Image overlay;
+    public Text timeHudText;
+    public Text scoreHudText;
 
     private void Awake()
     {
-        SoundManager.instance.SetLevelObjects(gameObject.GetComponent<LevelObjects>());
-        GameManager.instance.SetLevelObjects(gameObject.GetComponent<LevelObjects>());
+        SoundManager.Instance.SetLevelObjects(gameObject.GetComponent<LevelObjects>());
+        GameManager.Instance.SetLevelObjects(gameObject.GetComponent<LevelObjects>());
     }
 
 }
