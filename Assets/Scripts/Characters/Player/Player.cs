@@ -35,9 +35,10 @@ public class Player : Character
         animator.SetBool(AnimationVariables.isLevelComplete, levelCompleted);
         animator.SetBool(AnimationVariables.isRunning, isRunning);
 
-        bool jumpInput = (Input.GetButtonDown(Constants.Input.Keys.jump) || joystick.Vertical > 0.5f) && grounded;
+        bool jumpInput = (Input.GetButtonDown(Constants.Input.Keys.jump) || joystick.Vertical > 0.5f) && grounded;  // && !isJumping
         if (jumpInput)
         {
+            Debug.Log("Jump Input");
             isJumping = true;
             if (PlayerCanMove)   // TODO: Decision - pass to GameManager
             {
@@ -67,7 +68,6 @@ public class Player : Character
             rigidBody.velocity = new Vector2(velocity, rigidBody.velocity.y);
             isRunning = (velocity != 0);
 
-
             if ((move < 0 && isFacingRight) || (move > 0 && !isFacingRight))
             {
                 Flip();
@@ -75,8 +75,8 @@ public class Player : Character
 
             if (isJumping)
             {
-                rigidBody.AddForce(new Vector2(0f, jumpForce));
                 isJumping = false;
+                rigidBody.AddForce(new Vector2(0f, jumpForce));
             }
         }
         else
