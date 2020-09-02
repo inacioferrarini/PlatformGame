@@ -7,9 +7,13 @@
 public class LevelController : MonoBehaviour
 {
     public LevelObjects levelobjects;
+    public Joystick joystick;
 
     private void Start()
     {
+        joystick.enabled = Application.isMobilePlatform;
+        Debug.Log("isMobile platform: " + Application.isMobilePlatform);
+
         GameManager.Instance.ResetLevel(levelobjects.timeToComplete);
     }
 
