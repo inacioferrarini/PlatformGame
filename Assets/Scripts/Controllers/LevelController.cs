@@ -12,8 +12,6 @@ public class LevelController : MonoBehaviour
     private void Start()
     {
         joystick.enabled = Application.isMobilePlatform;
-        Debug.Log("isMobile platform: " + Application.isMobilePlatform);
-
         GameManager.Instance.ResetLevel(levelobjects.timeToComplete);
     }
 
