@@ -12,7 +12,7 @@ public class Player : Character
     // Player State
     private bool isJumping = false;
     private bool isAlive = true;
-    private bool levelCompleted = false;
+    private bool isLevelCompleted = false;
     private bool isRunning = false;
 
     // Player Audio
@@ -20,7 +20,7 @@ public class Player : Character
     public AudioClip dieFx;
     public AudioClip jumpFx;
 
-    private bool PlayerCanMove { get { return isAlive && !levelCompleted; } }
+    private bool PlayerCanMove { get { return isAlive && !isLevelCompleted; } }
 
     private void Awake()
     {
@@ -32,15 +32,14 @@ public class Player : Character
         grounded = Physics2D.OverlapCircle(groundCheck.position, radiusCheck, groundLayer);
         animator.SetBool(AnimationVariables.isAlive, isAlive);
         animator.SetBool(AnimationVariables.isGrounded, grounded);
-        animator.SetBool(AnimationVariables.isLevelComplete, levelCompleted);
+        animator.SetBool(AnimationVariables.isLevelComplete, isLevelCompleted);
         animator.SetBool(AnimationVariables.isRunning, isRunning);
 
-        bool jumpInput = (Input.GetButtonDown(Constants.Input.Keys.jump) || joystick.Vertical > 0.5f) && grounded;  // && !isJumping
+        bool jumpInput = (Input.GetButtonDown(Constants.Input.Keys.jump) || joystick.Vertical > 0.5f) && grounded && !isJumping;
         if (jumpInput)
         {
-            Debug.Log("Jump Input");
             isJumping = true;
-            if (PlayerCanMove)   // TODO: Decision - pass to GameManager
+            if (PlayerCanMove)
             {
                 SoundManager.Instance.PlayFxPlayer(jumpFx);  // TODO: Create a Wrapper variable?
             }
@@ -75,8 +74,8 @@ public class Player : Character
 
             if (isJumping)
             {
-                isJumping = false;
                 rigidBody.AddForce(new Vector2(0f, jumpForce));
+                isJumping = false;
             }
         }
         else
@@ -115,7 +114,7 @@ public class Player : Character
     /// </summary>
     public void LevelCompleted()
     {
-        levelCompleted = true;
+        isLevelCompleted = true;
     }
 
     /// <summary>
